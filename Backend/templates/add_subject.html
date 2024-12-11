@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+{% block content %}
+<section class="content-main">
+    <div class="row">
+        <div class="col-6">
+            <div class="content-header">
+                <h2 class="content-title">Add New Subject</h2>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="{% url 'Save_Subject' %}" method="post" enctype="multipart/form-data" name="Subject_form">
+                                {% csrf_token %}
+                            <div class="mb-4">
+                                <label class="form-label">Course Name</label>
+                                <select class="form-select" name="Course_name_" id="Course_name">
+                                    <option></option>
+                                    {% for i in course %}
+                                    <option>{{i.Course_Name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div> 
+                            <div class="mb-4">
+                                <label class="form-label">Subject Name</label>
+                                <input type="text" placeholder="Type here" class="form-control" name="Subject_Name_">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Subject Fees</label>
+                                <input class="form-control" type="number" name="Subject_fees_">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Old Fees</label>
+                                <input class="form-control" type="number" name="old_fees_">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label">Subject Images</label>
+                                <input class="form-control" type="file" name="Subject_Images_">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Description</label>
+                                <textarea placeholder="Type here" class="form-control" rows="4"
+                                    name="Description_"></textarea>
+                            </div>
+                            <div>
+                                <button class="btn btn-md rounded font-sm hover-up" type="submit">Register</button>
+                            </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}
