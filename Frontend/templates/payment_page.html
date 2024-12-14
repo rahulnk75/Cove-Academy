@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Payment</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'web/assets/css/main.css' %}">
+</head>
+
+<body>
+   
+    
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{% url 'Home_Page' %}" rel="nofollow">Home</a>
+
+                    <span></span> Check out
+                </div>
+            </div>
+        </div>
+        <section class="mt-50 mb-50">
+            <div class="container">
+               
+                
+                <div class="row">
+                   
+                    <div class="col-md-6" style="margin-left: 250px;">
+                        <div class="order_review">
+                            <div class="mb-20">
+                                <h4 style="font-weight: 900;">Payment Summery</h4>
+                            </div>
+                            <div class="table-responsive order_table text-center">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">Course / subject</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        {% for i in pay_p %}
+                                        <tr>
+                                            <td class="image product-thumbnail"><img src="{{i.Course_Images.url}}" alt="#"></td>
+                                            <td><i class="ti-check-box font-small text-muted mr-10"></i>
+                                                <h5><a href="shop-product-full.html">{{i.Course_Name}}</a></h5> <span class="product-qty"></span>
+                                            </td>
+                                            <td>₹{{i.Old_fees}}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <th>Price</th>
+                                            <td class="product-subtotal" colspan="2">₹{{i.Old_fees}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Discount</th>
+                                            <td colspan="2"><em>₹{{discount}}</em></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total</th>
+                                            <td colspan="2" class="product-subtotal"><span class="font-xl text-brand fw-900">₹{{i.Course_fees}}</span></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                            <h6 style="color: brown; font-weight: 900;">Importent Reminder: This batch is non-refundable</h6>
+                            
+                            <a href="#" class="btn mt-30" style="margin-left: 300px; width: 189px;">PROCEED TO BUY</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Preloader Start -->
+    
+    <!-- Vendor JS-->
+    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins/slick.js"></script>
+    <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="assets/js/plugins/wow.js"></script>
+    <script src="assets/js/plugins/jquery-ui.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="assets/js/plugins/magnific-popup.js"></script>
+    <script src="assets/js/plugins/select2.min.js"></script>
+    <script src="assets/js/plugins/waypoints.js"></script>
+    <script src="assets/js/plugins/counterup.js"></script>
+    <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="assets/js/plugins/images-loaded.js"></script>
+    <script src="assets/js/plugins/isotope.js"></script>
+    <script src="assets/js/plugins/scrollup.js"></script>
+    <script src="assets/js/plugins/jquery.vticker-min.js"></script>
+    <!-- Template  JS -->
+    <script src="{% static 'web/assets/js/main.js' %}"></script>
+    <script src="{% static 'web/assets/js/shop.js' %}"></script>
+</body>
+
+</html>

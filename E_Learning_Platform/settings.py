@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'Backend',
     'Frontend', 
     'StudentsApp',
-    'MeandersApp'
+    'MeandersApp',
+    'CourseApp',
    
 ]
 

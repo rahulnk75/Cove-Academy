@@ -324,13 +324,13 @@
                                         </ul>
                                     </div>
                                      {% else %}
-                                    <p><a style="margin-left: 20px; font-size: 20px; color: brown;" href="{% url 'All_login_page' %}"  class="btn-fill-out btn-block hover-up">LogIn</a></p>
+                                    <p><a style="margin-left: 20px; font-size: 20px; color: brown;" href="{% url 'Student_LogIn' %}"  class="btn-fill-out btn-block hover-up">LogIn</a></p>
                                      {% endif %}
                                 </div>
                                 
                             </div>
                             <div>
-                                <a class="dropdown-item btn-fill-out btn-block hover-up" href="{% url 'Student_Logout' %}" style="margin-left: 45px; font-size: 15px; font-weight: 600; background: none;" ><i>{{request.session.Username}}</i></a>
+                                <a class="dropdown-item btn-fill-out btn-block hover-up" href="{% url 'Student_Logout' %}" style="margin-left: 45px; font-size: 15px; font-weight: 600; background: none;" ><i> {{request.session.Username}}</i></a>
                             </div>
                         </div>
                     </div>
@@ -1094,14 +1094,14 @@
                             <div class="col-lg-3 col-md-4" >
                                 <div class="product-cart-wrap mb-30" >
                                     <div class="product-img-action-wrap" >
-                                        <div class="">
-                                            <a href="{% url 'Subject_Filterd' sub_name=i.Course_Name %}">
+                                        <div class="{% url 'Payment_Page' pay_id=i.id %}">
+                                            <a href="{% url 'Explore_Course' Ex_id=i.id %}">
                                                 <img class="default-img" src="{{i.Course_Images.url}}" style="height: 230px; width: 250px;" alt="">
                                                 <!-- <img class="hover-img" src="{{i.Course_Images.url}}" alt=""> -->
                                             </a>
                                         </div>
                                         <div class="product-action-1">
-                                            <a aria-label="view full course" class="action-btn hover-up" href="{% url 'Subject_Filterd' sub_name=i.Course_Name %}">
+                                            <a aria-label="Explore Course" class="action-btn hover-up" href="{% url 'Explore_Course' Ex_id=i.id %}">
                                                 <i class="fi-rs-search"></i></a>
                                             <!-- <a aria-label="Add To Wishlist" class="action-btn hover-up"
                                                 href="shop-wishlist.html"><i class="fi-rs-heart"></i></a> -->
@@ -1123,8 +1123,7 @@
                                         <div class="product-price">
                                             <span>₹{{i.Course_fees}}</span>
                                             <span class="old-price">₹{{i.Old_fees}}</span>
-                                            <a href="" class="action-btn small hover-up" data-bs-toggle="modal"
-                                            data-bs-target="#quickViewModal"><button class="btn action-btn hover-up"
+                                            <a href="{% url 'Payment_Page' pay_id=i.id %}" class="action-btn small hover-up"><button class="btn action-btn hover-up"
                                                     style="padding: 5px; margin-left: 35px; margin-bottom: 15px;">Buy Now</button></a>
                                         </div>
 

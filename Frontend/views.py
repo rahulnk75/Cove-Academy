@@ -28,25 +28,24 @@ def Save_Contact(request):
  
 def Course_Page(request):
     Course=Course_Db.objects.all()
-    return render(request,'course_page.html',{'Course':Course})
-
-def Courses_Filterd(request,Cour_name):
-    cour=Course_Db.objects.filter(Exam_Categories=Cour_name)
-    return render(request,'course_filterd.html',{'cour':cour})  
+    return render(request,'course_page.html',{'Course':Course}) 
 
 def Subject_Page(request):
     Subject=Subject_Db.objects.all()
     return render(request,'subject_page.html',{'Subject':Subject})
 
-def Subject_Filterd(request,sub_name):
-    sub=Subject_Db.objects.filter(Course_Name=sub_name)
-    return render(request,'subject_filterd.html',{'sub':sub})
-
-def All_login_page(request):
-    return render(request,'all_login_page.html')
-
 def Textbook_Page(request): 
     return render(request,'textbook_page.html')
 
-def Blog_page(request): 
+def Blog_page(request):  
     return render(request,'blog_page.html')
+
+def Payment_Page(request,pay_id):
+    pay_p=Course_Db.objects.filter(id=pay_id)
+    price=0
+    discount=0
+    total=0
+    for i in pay_p:
+        discount = i.Old_fees - i.Course_fees
+
+    return render(request,'payment_page.html',{'pay_p':pay_p,'discount':discount})

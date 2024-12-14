@@ -280,7 +280,7 @@
                                         </ul>
                                     </div>
                                      {% else %}
-                                    <p><a style="margin-left: 20px; font-size: 20px; color: brown;" href="{% url 'All_login_page' %}"  class="btn-fill-out btn-block hover-up">LogIn </a></p>
+                                    <p><a style="margin-left: 20px; font-size: 20px; color: brown;" href="{% url 'Student_LogIn' %}"  class="btn-fill-out btn-block hover-up">LogIn </a></p>
                                      {% endif %}
                                 </div>
                                 
@@ -1106,8 +1106,8 @@
                                         <div class="product-price">
                                             <span>₹{{i.Subject_fees}}</span>
                                             <span class="old-price">₹{{i.Old_fees}}</span>
-                                          <a href="" class="action-btn small hover-up" data-bs-toggle="modal"
-                                          data-bs-target="#quickViewModal"><button class="btn action-btn hover-up" style="padding: 5px; margin-left: 35px; margin-bottom: 15px;">Buy Now</button></a>  
+                                          <a href="{% url 'Payment_Page' pay_id=i.id %}" class="action-btn small hover-up" 
+                                         ><button class="btn action-btn hover-up" style="padding: 5px; margin-left: 35px; margin-bottom: 15px;">Buy Now</button></a>  
                                         </div>
                                        
                                     </div>

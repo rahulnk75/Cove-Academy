@@ -22,6 +22,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns,static
 from . import settings
 import StudentsApp.urls
 import MeandersApp.urls
+import CourseApp.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('Frontend/',include(Frontend.urls)),
     path('StudentsApp/',include(StudentsApp.urls)),
     path('MeandersApp/',include(MeandersApp.urls)),
+    path('CourseApp/',include(CourseApp.urls)),
 ]
 
 urlpatterns+=staticfiles_urlpatterns()

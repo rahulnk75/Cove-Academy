@@ -36,3 +36,6 @@ def Student_Logout(request):
     del request.session['Username']
     del request.session['Password']
     return redirect(Home_Page)
+
+def OTP_page(request):
+    return render(request,'otp_page.html')

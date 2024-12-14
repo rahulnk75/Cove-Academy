@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Explore-Course</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'web/assets/css/main.css' %}">
+</head>
+
+<body>
+    <!-- Quick view -->
+
+    <main class="main">
+      
+        <div class="t_body">
+            <div class="navbar">
+                {% for i in Ex_course %}
+                <input class="heading" type="text" value="{{ i.Course_Name | upper }}" readonly>
+                {% endfor %}
+                <img class="cove_img" src="{% static 'web/assets/imgs/theme/head_.png' %}" alt="">
+            </div>
+            <div class="navbar2">
+                <a href="" class="Description"><span
+                        style="text-decoration-line: underline;">Description</span></a>
+                <a href="{% url 'All_Classes'  %}" class="Description"><span>All classes</span></a>
+                <a href="" class="Description"><span>Test</span></a>
+                <a href="" class="Description"><span>Announcement</span></a>
+
+            </div> 
+           
+            <div class="include">
+                <h3 class="this">This Batch includes</h3>
+                <div class="Live">
+                    <span class="Hrs"> 300+ Hrs</span> <br> Live Lectures
+                </div>
+                <div class="Tests">
+                    <span class="Hrs"> 30+ </span> <br> Tests
+                </div>
+                <div class="star">
+                    <img class="star_" src="{% static 'web/assets/imgs/theme/start.png' %}">
+                    
+                </div>
+                <h6 class="one">Live Classes + Recording of the classes will be available</h6>
+                
+                <div class="star">
+                    <img class="star_" src="{% static 'web/assets/imgs/theme/start.png' %}">
+                    
+                </div>
+                <h6 class="one">Monthly Mock Exams</h6>
+                <div class="star">
+                    <img class="star_" src="{% static 'web/assets/imgs/theme/start.png' %}">
+                    
+                </div>
+                <h6 class="one">Subjects: <br> <br> HISTORY, GEOGRAPHY, ECONOMICS, CIVICS, CONSTITUTION, ART CULTURE LITERATURE SPORTS, BASICS OF COMPUTER, SCIENCE AND TECHNOLOGY, SIMPLE ARITHMETIC, MENTAL ABILITY & REASONING, ENGLISH, MALAYALAM, CURRENT AFFAIRS</h6>
+            </div>
+            <div class="card1">
+                <div class="row product-grid-3">
+                    {% for i in Ex_course %}
+                    <div style="width: 75%;">
+                        <div class="product-cart-wrap mb-30">
+                            <div class="product-img-action-wrap">
+                                <div class="">
+                                    <a href="">
+                                        <img class="default-img" src="{{i.Course_Images.url}}" style="height: 300px; width: 340px;" alt="">
+                                        <!-- <img class="hover-img" src="{{i.Course_Images.url}}" alt=""> -->
+                                    </a>
+                                </div>
+                                
+                                
+                                <div class="product-badges product-badges-position product-badges-mrg">
+                                    <span class="hot">{{i.Exam_Categories}}</span>
+                                </div>
+                            </div> 
+                            <div class="product-content-wrap">
+                               
+                                <h2><a href="shop-product-right.html">{{i.Course_Name}}</a></h2>
+                                <div class="rating-result" title="90%">
+                                    <span>
+                                        <span>90%</span>
+                                    </span>
+                                </div>
+                                <div class="product-price">
+                                    <span>₹{{i.Course_fees}}</span>
+                                    <span class="old-price">₹{{i.Old_fees}}</span>
+                                  <a href="{% url 'Payment_Page' pay_id=i.id %}" class="action-btn small hover-up" 
+                                 ><button class="btn action-btn hover-up" style="padding: 5px; margin-left: 35px; margin-bottom: 15px;">Buy Now</button></a>  
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% endfor %}
+                </div>
+
+            </div>
+           
+            
+        </div>
+        
+    </main>
+   
+    <style>
+        .t_body {
+            width: 100%;
+            height: 800px;
+            background-color: #e5e7eb;
+            padding-top: 20px;
+            
+        }
+
+        .navbar {
+            width: 1065px;
+            height: 80px;
+            margin-left: 153px;
+            background-color: rgb(7, 178, 201);
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .cove_img {
+            width: 182px;
+            height: 64px;
+        }
+
+        .heading {
+            width: 600px;
+            height: 65px;
+            background-color:rgb(7, 178, 201);
+            border: none;
+            font-size: 25px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .navbar2 {
+            width: 1065px;
+            height: 45px;
+            margin-left: 153px;
+            background-color: white;
+            margin-top: 1px;
+            padding-top: 10px;
+        }
+
+        .Description {
+            color: black;
+            font-size: 15px;
+            margin-left: 15px;
+            padding-top: 25px;
+            font-weight: 600;
+            
+
+        }
+
+        .include {
+            height: 465px;
+            width: 650px;
+            background-color: white;
+            margin-top: 20px;
+            margin-left: 153px;
+            border-radius: 10px;
+        }
+
+        .this {
+            margin-left: 20px;
+            padding-top: 20px;
+            font-weight: 600;
+        }
+
+        .Live {
+            width: 110px;
+            height: 70px;
+            background-color: #e5e7eb;
+            border-radius: 10px;
+            margin-left: 31px;
+            margin-top: 33px;
+            padding-left: 14px;
+            padding-top: 8px;
+        }
+
+        .Hrs {
+            font-weight: 900;
+            font-size: 18px;
+            color: rgb(2, 184, 184);
+        }
+
+        .Tests {
+            width: 67px;
+            height: 70px;
+            background-color: #e5e7eb;
+            border-radius: 10px;
+            margin-left: 158px;
+            margin-top: -70px;
+            padding-left: 17px;
+            padding-top: 8px;
+
+        }
+
+        .star {
+            width: 35px;
+            height: 35px;
+            border-radius: 40px;
+            background-color: #e5e7eb;
+            margin-left: 31px;
+            margin-top: 40px;
+        }
+
+        .star_ {
+            width: 21px;
+            margin-left: 6px;
+            margin-top: 6px;
+
+
+        }
+        .one{
+            margin-left: 79px;
+            margin-top: -24px;
+        }
+        .card1{
+            margin-left: 850px;
+            margin-top: -469px;
+        }
+
+        
+    </style>
+
+    <!-- Vendor JS-->
+    <script src="{% static 'web/assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/slick.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.syotimer.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/wow.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery-ui.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/magnific-popup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/select2.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/waypoints.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/counterup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/images-loaded.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/isotope.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/scrollup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.vticker-min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.theia.sticky.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.elevatezoom.js' %}"></script>
+    <!-- Template  JS -->
+    <script src="{% static 'web/assets/js/main.js' %}"></script>
+    <script src="{% static 'web/assets/js/shop.js' %}"></script>
+</body>
+
+</html>
