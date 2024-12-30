@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+{% block content %}
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Subject Details</h2>
+            <!-- <p>Lorem ipsum dolor sit amet.</p> -->
+        </div>
+        <!-- <div>
+            <input type="text" placeholder="Search order ID" class="form-control bg-white">
+        </div> -->
+    </div>
+    <div class="card mb-4">
+       
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Subject Name</th>
+                            <th scope="col">Subject Fees</th>
+                            <th scope="col">old Fees</th>
+                            <th scope="col">Subject Images</th>
+                            <th scope="col">Description</th>
+                            <th scope="col" class="text-end"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in sub %}
+                        <td>{{i.Course_Name}}</td>
+                        <td>{{i.Subject_Name}}</td>
+                        <td>{{i.Subject_fees}}</td>
+                        <td>{{i.Old_fees}}</td>
+                        <td><img src="{{i.Subject_Images.url}}" style="width: 70px; height: 70px;"></td>
+                        <td>{{i.Description}}</td>
+                            <td class="text-end">
+                                <a href="{% url 'Edit_Subject' edit_id=i.id %}" class="btn btn-md rounded font-sm">Edit</a>
+                                <a href="{% url 'Delete_Subject' sub_id=i.id %}" class="btn btn-danger rounded font-sm">Delete</a> 
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div> <!-- table-responsive //end -->
+        </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+    <div class="pagination-area mt-15 mb-50">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-start">
+                <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                <li class="page-item"><a class="page-link" href="#">02</a></li>
+                <li class="page-item"><a class="page-link" href="#">03</a></li>
+                <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                <li class="page-item"><a class="page-link" href="#">16</a></li>
+                <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+{% endblock %}

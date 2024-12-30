@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Payment</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'web/assets/css/main.css' %}">
+</head>
+
+<body>
+    <div class="col-lg-12">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="left_div">
+                <div>
+                    <img class="cove_img" src="{% static 'web/assets/imgs/theme/head_.png' %}">
+                </div>
+                <div>
+                    <img class="second_img" src="{% static 'web/assets/imgs/theme/payment.png' %}">
+                </div>
+                <div>
+                    <h3 class="wel">PROCEED TO PAYMENT</h3>
+                    <h3 class="cove" >RAHUL NK</h3>
+                    
+                    {% for i in pay_p %}
+                    <h3 class="pre">{{i.Course_Name}}</h3>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <div class="right_div">
+                <div class="p_full">
+
+                    <div class="order_review" style="height: 607px;">
+                        <div class="">
+                            <h4 style="font-weight: 900; margin-top: 50px;">Payment Summery</h4>
+                        </div>
+                        <div class="table-responsive order_table text-center" style="margin-top: 20px;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Course </th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for i in pay_p %}
+                                    <tr>
+                                        <td class="image product-thumbnail"><img src="{{i.Course_Images.url}}" alt="#">
+                                        </td>
+                                        <td><i class="ti-check-box font-small text-muted mr-10"></i>
+                                            <h5><a href="shop-product-full.html">{{i.Course_Name}}</a></h5> <span
+                                                class="product-qty"></span>
+                                        </td>
+                                        <td>₹{{i.Old_fees}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Price</th>
+                                        <td class="product-subtotal" colspan="2" >₹{{i.Old_fees}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Discount</th>
+                                        <td colspan="2"><em>₹{{discount}}</em></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td colspan="2" class="product-subtotal"><span
+                                                class="font-xl text-brand fw-900">₹{{i.Course_fees}}</span></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+
+
+                            </table>
+                            <h6 style="color: brown; font-weight: 900; margin-left: -280px;">Importent Reminder: This
+                                batch is non-refundable
+                            </h6>
+                            <button class="btn btn_1">PROCEED TO BUY</button>
+                        </div>
+
+                    </div>
+        </form>
+    </div>
+    </div>
+
+    </div>
+
+    <style>
+        .left_div {
+            height: 607px;
+            width: 50%;
+            background-color: rgb(232, 253, 253);
+        }
+
+        .cove_img {
+            width: 120px;
+            margin-left: 180px;
+            margin-top: 35px;
+        }
+
+        .second_img {
+            width: 400px;
+            margin-top: 40px;
+            margin-left: 100px;
+        }
+
+        .wel {
+            margin-left: 210px;
+            margin-top: -34px;
+
+            font-weight: 900;
+
+        }
+
+        .cove {
+            margin-left: 210px;
+            margin-top: 15px;
+            color: brown;
+            font-weight: 900;
+        }
+
+        .pre {
+            margin-left: 210px;
+            margin-top: 10px;
+            font-weight: 900;
+
+        }
+
+        .one {
+            color: rgb(105, 100, 100);
+            font-size: 17px;
+            font-weight: 600;
+            margin-left: 120px;
+            margin-top: 10px;
+        }
+
+        .two {
+            color: rgb(105, 100, 100);
+            font-size: 17px;
+            font-weight: 600;
+            margin-left: 60px;
+        }
+
+        .three {
+            color: rgb(105, 100, 100);
+            font-size: 17px;
+            font-weight: 600;
+            margin-left: 70px;
+        }
+
+        .right_div {
+            height: 607px;
+            width: 50%;
+            margin-left: 676px;
+            margin-top: -607px;
+            /* background-color: aqua; */
+
+        }
+
+        .please {
+            padding-top: 139px;
+            padding-left: 80px;
+            letter-spacing: 0px;
+        }
+
+        .login {
+            padding-top: 10px;
+            padding-left: 80px;
+            font-weight: 900;
+
+        }
+
+        .line {
+            border: solid 1px rgb(238, 232, 232);
+            width: 500px;
+            margin-left: 80px;
+            margin-top: 30px;
+        }
+
+        .mobile {
+            width: 440px;
+            margin-left: -1px;
+            margin-top: 30px;
+            font-weight: 600;
+        }
+
+        .f_n {
+            width: 60px;
+            font-weight: 600;
+            color: black;
+            margin-left: 80px;
+        }
+
+        .by {
+            margin-left: 80px;
+            margin-top: 60px;
+            font-size: 11px;
+            font-weight: 600;
+
+        }
+
+        .btn {
+            margin-left: 80px;
+            margin-top: 10px;
+            width: 500px;
+
+
+        }
+
+        .p_full {
+            width: 50%px;
+            height: 607px;
+            margin-left: 0px;
+            height: 607px;
+        }
+
+        .btn_1 {
+            width: 250px;
+            margin-top: 60px;
+            margin-right: -255px;
+
+        }
+    </style>
+
+    <!-- Vendor JS-->
+    <script src="{% static 'web/assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/slick.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.syotimer.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/wow.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery-ui.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/magnific-popup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/select2.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/waypoints.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/counterup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/images-loaded.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/isotope.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/scrollup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.vticker-min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.theia.sticky.js' %}"></script>
+    <!-- Template  JS -->
+    <script src="{% static 'web/assets/js/main.js' %}"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_sXSjc7ZbwI7M3J"
+        data-amount="{{payy_str}}" data-currency="INR" data-order_id="{{payment.order_id}}" data-buttontext=""
+        data-name="Course" data-description="Your description" data-image="" data-prefill.name="abc"
+        data-prefill.email="abc@gmail.com" data-theme.color="#4badeb"></script>
+
+
+</body>
+
+</html>

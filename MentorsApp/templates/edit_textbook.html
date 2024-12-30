@@ -1,0 +1,66 @@
+
+{% block content %}
+<section class="content-main">
+    <div class="row" style="margin-top:-60px;">
+        <div class="col-6">
+            <div class="content-header">
+                <h2 class="content-title">Edit Text Book</h2>
+
+            </div>
+        </div>
+    </div>
+    <form action="{% url 'Upload_Textbook' upd_id=edit.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-4">
+                                    <label class="form-label">Subject Name</label>
+                                    <input type="text" placeholder="Type here" class="form-control" name="Subject_Name_" value="{{edit.Subject_name}}">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Scert/Ncert</label>
+                                    <select class="form-select" name="Scert_Ncert_">
+                                        <option>{{edit.Scert_Ncert}}</option>
+                                        <option>SCERT</option>                                       
+                                        <option>NCERT</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Class</label>
+                                    <input type="text" placeholder="Type here" class="form-control" name="Class_" value="{{edit.Class}}">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Upload PDF</label>
+                                    <a href="{{edit.PDF_file.url}}">{{edit.PDF_file}}</a>
+                                    <input class="form-control" type="file" name="PDF_file_" accept="application/pdf">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Text book Images</label>
+                                    <img src="{{edit.Textbook_Images.url}}" style="width: 70px; height: 70px;" alt="">
+                                    <input class="form-control" type="file" name="Textbook_Images_">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Description</label>
+                                    <textarea placeholder="Type here" class="form-control" rows="4"
+                                        name="Description_">{{edit.Description}}</textarea>
+                                </div>
+                                <div>
+                                    <button class="btn btn-md rounded font-sm hover-up" type="submit">Upload</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</section>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'mentors_home_page.html' %}
+{% block content %}
+<section class="content-main">
+    <div class="row" style="margin-top:-60px;">
+        <div class="col-6">
+            <div class="content-header">
+                <h2 class="content-title">Add Question Paper</h2>
+
+            </div>
+        </div>
+    </div>
+    <form action="{% url 'Save_Question_Paper' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-4">
+                                    <label class="form-label">Exam Name</label>
+                                    <input type="text" placeholder="Type here" class="form-control" name="Exam_Name_">
+                                </div>
+                    
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Date</label>
+                                    <input type="text" placeholder="Type here" class="form-control" name="Date_">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Upload PDF</label>
+                                    <input class="form-control" type="file" name="Q_Pdf_file_" accept="application/pdf">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Description</label>
+                                    <textarea placeholder="Type here" class="form-control" rows="4"
+                                        name="Description_"></textarea>
+                                </div>
+                                <div>
+                                    <button class="btn btn-md rounded font-sm hover-up" type="submit">Register</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</section>
+{% endblock %}

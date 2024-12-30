@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Student Register</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content=""> 
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'web/assets/css/main.css' %}">
+</head>
+
+<body>
+    <div class="col-lg-12">
+        <div class="left_div">
+            <div>
+                <img class="cove_img" src="{% static 'web/assets/imgs/theme/head_.png' %}">
+            </div>
+            <div>
+                <img class="second_img" src="{% static 'web/assets/imgs/theme/second.png' %}">
+            </div>
+            <div>
+                <h6 class="wel">WELCOME TO YOUR</h6>
+                <h3 class="cove">COVE ACADEMY</h3>
+                <h3 class="pre">Prepration</h3>
+            </div>
+            <div style="margin-top: 99px;">
+                <a class="one" href="{% url 'Contact_Page' %}">Contact us</a>
+                <a class="two" href="">Terms and Conditions</a>
+                <a class="three" href=""> privacy policy</a>
+            </div>
+        </div>
+        <div class="right_div">
+            <div>
+                <h4 class="please">Please enter your details to</h4>
+                <h3 class="login">Register</h3>
+            </div>
+            <div class="line"></div>
+            <form action="{% url 'Save_Student_Register' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" class="Full_name" placeholder="Full name" name="full_name_"><br>
+                <input class="f_n" type="text" value="+91">
+                <input class="mobile" type="tel" placeholder="Enter your mobile number" name="mobile_">
+                <input type="email" class="Email" placeholder="Email" name="email_">
+                <input type="password" class="Password" placeholder="Password" name="password_">
+                <input type="password" class="Password" placeholder="Confirm-Password" name="c_password_">
+                <p class="by">By continuing you agree to all our <a href="">Terms & Conditions</a></p>
+               <button class="btn">Continue</button>
+            </form>
+
+            <div class="text-muted text-center" style="margin-top: 30px;">Already have an account? <a style="font-weight: 600;" href="{% url 'Student_LogIn' %}"> Log in now</a></div>
+        </div>
+
+    </div>
+
+    <style>
+        .left_div {
+            height: 607px;
+            width: 50%;
+            background-color: rgb(232, 253, 253);
+        }
+
+        .cove_img {
+            width: 100px;
+            margin-left: 180px;
+            margin-top: 35px;
+        }
+
+        .second_img {
+            width: 256px;
+            margin-top: 50px;
+            margin-left: 187px;
+        }
+
+        .wel {
+            margin-left: 227px;
+            margin-top: -34px;
+            color: rgb(6, 194, 194);
+            font-weight: 900;
+
+        }
+
+        .cove {
+            margin-left: 210px;
+            margin-top: 15px;
+            color: brown;
+            font-weight: 900;
+        }
+
+        .pre {
+            margin-left: 210px;
+            margin-top: 10px;
+            font-weight: 900;
+
+        }
+
+        .one {
+            color: rgb(105, 100, 100);
+            font-size: 17px;
+            font-weight: 600;
+            margin-left: 120px;
+            margin-top: 10px;
+        }
+
+        .two {
+            color: rgb(105, 100, 100);
+            font-size: 17px;
+            font-weight: 600;
+            margin-left: 60px;
+        }
+
+        .three {
+            color: rgb(105, 100, 100);
+            font-size: 17px;
+            font-weight: 600;
+            margin-left: 70px;
+        }
+
+        .right_div {
+            height: 607px;
+            width: 50%;
+            margin-left: 676px;
+            margin-top: -607px;
+            /* background-color: aqua; */
+
+        }
+
+        .please {
+            padding-top: 35px;
+            padding-left: 80px;
+            letter-spacing: 0px;
+        }
+
+        .login {
+            padding-top: 10px;
+            padding-left: 80px;
+            font-weight: 900;
+
+        }
+
+        .line {
+            border: solid 1px rgb(238, 232, 232);
+            width: 500px;
+            margin-left: 80px;
+            margin-top: 30px;
+        }
+        .Full_name{
+            width: 500px;
+            margin-left: 80px;
+            margin-top: 30px;
+            font-weight: 600;
+
+        }
+
+        .mobile {
+            width: 439px;
+            margin-left: -1px;
+            margin-top: 8px;
+            font-weight: 600;
+            
+        }
+        .Email,.Password{
+            width: 500px;
+            margin-left: 80px;
+            margin-top: 8px;
+            font-weight: 600;
+            
+        }
+        .f_n{
+            width: 60px;
+            font-weight: 600;
+            color: black;
+            margin-left: 80px;
+        }
+
+        .by {
+            margin-left: 80px;                   
+            margin-top: 27px;
+            font-size: 11px;
+            font-weight: 600;
+
+        }
+
+        .btn {
+            margin-left: 80px;
+            margin-top: 10px;
+            width: 500px;
+        }
+        
+        
+    </style>
+
+    <!-- Vendor JS-->
+    <script src="{% static 'web/assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/slick.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.syotimer.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/wow.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery-ui.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/magnific-popup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/select2.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/waypoints.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/counterup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/images-loaded.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/isotope.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/scrollup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.vticker-min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.theia.sticky.js' %}"></script>
+    <!-- Template  JS -->
+    <script src="{% static 'web/assets/js/main.js' %}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+      {% for i in messages %}
+        {% if i.tags == 'success' %}
+         <script>
+            swal('{{i}}','','success');
+         </script>
+         {% elif i.tags == 'error' %}
+         <script>
+            swal('{{i}}','','error');
+         </script>
+         {% elif i.tags == 'warning' %}
+         <script>
+            swal('{{i}}','','warning');
+         </script>
+         {% else %}
+         <script>
+            swal('{{i}}','','info');
+         </script>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+</body>
+
+</html>

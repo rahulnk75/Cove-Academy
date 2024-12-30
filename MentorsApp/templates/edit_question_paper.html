@@ -1,0 +1,54 @@
+{% extends 'mentors_home_page.html' %}
+{% block content %}
+<section class="content-main">
+    <div class="row" style="margin-top:-60px;">
+        <div class="col-6">
+            <div class="content-header">
+                <h2 class="content-title">Edit Question Paper</h2>
+
+            </div>
+        </div>
+    </div>
+    <form action="{% url 'Upload_Question_Paper' upd_id=edit.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-4">
+                                    <label class="form-label">Exam Name</label>
+                                    <input type="text" placeholder="Type here" class="form-control" name="Exam_Name_" value="{{edit.Exam_Name}}">
+                                </div>
+                    
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Date</label>
+                                    <input type="text" placeholder="Type here" class="form-control" name="Date_" value="{{edit.Date}}">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Upload PDF</label>
+                                    <a href="{{edit.Q_PDF_file.url}}">{{edit.Q_PDF_file}}</a>
+                                    <input class="form-control" type="file" name="Q_Pdf_file_" accept="application/pdf">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Description</label>
+                                    <textarea placeholder="Type here" class="form-control" rows="4"
+                                        name="Description_">{{edit.Description}}</textarea>
+                                </div>
+                                <div>
+                                    <button class="btn btn-md rounded font-sm hover-up" type="submit">Upload</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</section>
+{% endblock %}

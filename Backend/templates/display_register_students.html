@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% block content %}
+<section class="content-main">
+    <div class="content-header" style="margin-top: -60px;">
+        <div>
+            <h2 class="content-title card-title">Students Register Details</h2>
+            <!-- <p>Lorem ipsum dolor sit amet.</p> -->
+        </div>
+        <!-- <div>
+            <input type="text" placeholder="Search order ID" class="form-control bg-white">
+        </div> -->
+    </div>
+    <div class="card mb-4">
+       
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Full_Name</th>
+                            <th scope="col">Mobile</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in Reg %}
+                        <td>{{i.Full_Name}}</td>
+                        <td>{{i.Mobile}}</td>
+                        <td>{{i.Email}}</td>
+                        <td>{{i.Password}}</td>
+                            <td>
+                                <a href="{% url 'Delete_Register_Students' del_id=i.id %}" class="btn btn-danger rounded font-sm">Delete</a> 
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div> <!-- table-responsive //end -->
+        </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+    <div class="pagination-area mt-15 mb-50">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-start">
+                <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                <li class="page-item"><a class="page-link" href="#">02</a></li>
+                <li class="page-item"><a class="page-link" href="#">03</a></li>
+                <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                <li class="page-item"><a class="page-link" href="#">16</a></li>
+                <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+{% endblock %}
