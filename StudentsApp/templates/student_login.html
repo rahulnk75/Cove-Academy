@@ -40,16 +40,16 @@
         </div>
         <div class="right_div">
             <div>
-                <h4 class="please">Please enter your details to</h4>
+                <h4 class="please">Please enter your details to</h4> 
                 <h3 class="login">Student Login</h3>
             </div>
             <div class="line"></div>
             <form action="{% url 'Save_Student_LogIn' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="text" class="Full_name" placeholder="Username" name="full_name_" value="{{Student.Full_Name}}">
+                <input type="text" class="Full_name" placeholder="Email" name="Email_">
                 <input type="password" class="Password" placeholder="Password" name="Password_"> 
-                 <div class="f_P"><a href="" class="Forgot">Forgot password?</a></div>
-                <p class="by">By continuing you agree to all our <a href="{% url 'OTP_page' %}">Terms & Conditions</a></p>
+                 <div class="f_P"><a href="{% url 'forgot_password' %}" class="Forgot">Forgot password?</a></div>
+                <p class="by">By continuing you agree to all our <a href="">Terms & Conditions</a></p>
                <button class="btn">Continue</button>
             </form>
             <div class="text-muted text-center" style="margin-top: 30px;" >Create a account? <a style="font-weight: 600;" href="{% url 'Student_Register' %}">  Register now</a></div>

@@ -13,7 +13,10 @@ urlpatterns = [
     path('View_Study_Material/',views.View_Study_Material,name='View_Study_Material'),
     path('View_Question_Paper/',views.View_Question_Paper,name='View_Question_Paper'),
     path('Edit_Profile/',views.Edit_Profile,name='Edit_Profile'),
+    path('Chat_Page/',views.Chat_Page,name='Chat_Page'),
+    path('Live_Class_Page/',views.Live_Class_Page,name='Live_Class_Page'),
+    path('Mock_Test_Page/',views.Mock_Test_Page,name='Mock_Test_Page'),
 
-    
-    
+
+
 ]  

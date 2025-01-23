@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% block content %}
 <section class="content-main">
-    <div class="content-header" style="margin-top: -60px;">
+    <div class="content-header" style="margin-top: -40px;">
         <div>
             <h2 class="content-title card-title">Students Register Details</h2>
             <!-- <p>Lorem ipsum dolor sit amet.</p> -->
@@ -28,7 +28,7 @@
                         {% for i in Reg %}
                         <td>{{i.Full_Name}}</td>
                         <td>{{i.Mobile}}</td>
-                        <td>{{i.Email}}</td>
+                        <td>{{i.User_Email}}</td>
                         <td>{{i.Password}}</td>
                             <td>
                                 <a href="{% url 'Delete_Register_Students' del_id=i.id %}" class="btn btn-danger rounded font-sm">Delete</a> 

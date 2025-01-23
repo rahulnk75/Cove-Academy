@@ -5,15 +5,37 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from StudentsApp.models import Register_Db
-from MentorsApp. models import Mentors_Register_Db
+from MentorsApp. models import Mentors_Register_Db,Record_Class_Db
 from Frontend.models import Contact_Db
 from django.contrib import messages
+from CourseApp.models import Payment_DB,Subject_Payment_DB
+from django.db.models import Sum, Count 
 
 
-# Create your views here.
+
 # start exam categotys
+
 def index_page(request):
-    return render(request,'index.html')
+    details=Record_Class_Db.objects.all()
+    course_revenue = Payment_DB.objects.aggregate(total_revenue=Sum('Course_Fees'))
+    course_student_count = Payment_DB.objects.aggregate (total_students=Count('id'))
+
+    subject_revenue = Subject_Payment_DB.objects.aggregate(total_revenue=Sum('Subject_Fees'))
+    subject_student_count = Subject_Payment_DB.objects.aggregate(total_students=Count('id'))
+
+    total_revenue = (course_revenue['total_revenue'] or 0) + (subject_revenue['total_revenue'] or 0)
+    total_students = (course_student_count['total_students'] or 0) + (subject_student_count['total_students'] or 0)
+   
+    return render(request, 'index.html', {
+        'course_revenue': course_revenue['total_revenue'] or 0,
+        'course_student_count': course_student_count['total_students'] or 0,
+        'subject_revenue': subject_revenue['total_revenue'] or 0,
+        'subject_student_count': subject_student_count['total_students'] or 0,
+        'total_revenue': total_revenue,
+        'total_students': total_students,
+        'details':details
+    })
+
 
 def Exam_Category(request):
     obj=Exam_Db.objects.all()
@@ -233,10 +255,23 @@ def Delete_Register_Mentors(request,del_id):
     remov.delete()
     return redirect(Display_Register_Mentors) 
 
+def Display_Bought_Couserses(request):
+    Course=Payment_DB.objects.all()
+    return render(request,'display_bought_couserses.html',{'Course':Course})
 
-
-
-
+def Remove_Display_Bought_Couserses(request,rem_id):
+    remov=Payment_DB.objects.filter(id=rem_id)
+    remov.delete()
+    return redirect(Display_Bought_Couserses)
     
+def Display_Bought_Subjects(request):
+    Subject=Subject_Payment_DB.objects.all()
+    return render(request,'display_bought_subjects.html',{'Subject':Subject})  
+
+def Remove_Display_Bought_Subjects(request,rem_id):
+    remov=Subject_Payment_DB.objects.filter(id=rem_id)
+    remov.delete()
+    return redirect(Display_Bought_Subjects)
+
 
 

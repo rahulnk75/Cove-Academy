@@ -41,14 +41,14 @@
         <div class="right_div">
             <div>
                 <h4 class="please">Please enter your details to</h4>
-                <h3 class="login">Mentors Login</h3>
+                <h3 class="login">Mentors Login</h3> 
             </div>
             <div class="line"></div>
             <form action="{% url 'Save_Mentors_Login' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="email" class="Email" placeholder="Email" name="email_" value="{{Mentors.Email}}">
+                <input type="email" class="Email" placeholder="Email" name="email_" value="">
                 <input type="password" class="Password" placeholder="Password" name="password_">
-                <div class="f_P"><a href="" class="Forgot">Forgot password?</a></div>
+                <div class="f_P"><a href="{% url 'mentors_forgotpassword' %}" class="Forgot">Forgot password?</a></div>
                 <p class="by">By continuing you agree to all our <a href="">Terms & Conditions</a></p>
                <button class="btn">Continue</button>
             </form>

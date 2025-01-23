@@ -2,9 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # start exam categotys
     path('index_page/',views.index_page,name='index_page'),
 
+    # start exam categotys
     path('Exam_Category/',views.Exam_Category,name='Exam_Category'),
     path('Save_Exam_Category,',views.Save_Exam_Category,name='Save_Exam_Category'),
     path('Display_Exam_Category/',views.Display_Exam_Category,name='Display_Exam_Category'),
@@ -29,7 +29,6 @@ urlpatterns = [
     path('Delete_Subject/<int:sub_id>/',views.Delete_Subject,name='Delete_Subject'),
     path('Edit_Subject/<int:edit_id>/',views.Edit_Subject,name='Edit_Subject'),
     path('Update_Subject/<int:upd_id>/',views.Update_Subject,name='Update_Subject'),
-
     # end subject details
 
     # login page start
@@ -42,14 +41,25 @@ urlpatterns = [
     path('Contact_display/',views.Contact_display,name='Contact_display'),
     path('Contact_delete/<int:del_id>/',views.Contact_delete,name='Contact_delete'),
     # end contact details 
+
+    # start display student details
     path('Display_Register_Students/',views.Display_Register_Students,name='Display_Register_Students'),
     path('Delete_Register_Students/<int:del_id>/',views.Delete_Register_Students,name='Delete_Register_Students'),
-    
+    # End display student details
+
+    # start display Mentors details
     path('Display_Register_Mentors/',views.Display_Register_Mentors,name='Display_Register_Mentors'),
     path('Approve_Mentor/<int:mentor_id>/',views.Approve_Mentor,name='Approve_Mentor'),
     path('Delete_Register_Mentors/<int:del_id>/',views.Delete_Register_Mentors,name='Delete_Register_Mentors'),
-    
+    # End display Mentors details
 
+    # start display Payment details
+    path('Display_Bought_Couserses/',views.Display_Bought_Couserses,name='Display_Bought_Couserses'),
+    path('Remove_Display_Bought_Couserses/<int:rem_id>/',views.Remove_Display_Bought_Couserses,name='Remove_Display_Bought_Couserses'),
+    path('Display_Bought_Subjects/',views.Display_Bought_Subjects,name='Display_Bought_Subjects'),
+    path('Remove_Display_Bought_Subjects/<int:rem_id>/',views.Remove_Display_Bought_Subjects,name='Remove_Display_Bought_Subjects'),
+    # start display Payment details
+    
     
     
 

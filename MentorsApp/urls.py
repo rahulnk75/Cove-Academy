@@ -1,7 +1,7 @@
 from django.urls import path 
 from . import views
 
-urlpatterns = [
+urlpatterns = [ 
     path('Mentors_Home_Page/',views.Mentors_Home_Page,name='Mentors_Home_Page'),
 # start Mentors details
     path('Mentors_Login/',views.Mentors_Login,name='Mentors_Login'),
@@ -9,6 +9,18 @@ urlpatterns = [
     path('Save_Mentors_Register/',views.Save_Mentors_Register,name='Save_Mentors_Register'),
     path('Save_Mentors_Login/',views.Save_Mentors_Login,name='Save_Mentors_Login'),
     path('Mentors_Logout/',views.Mentors_Logout,name='Mentors_Logout'),
+    path('Verify_OTP_/', views.Verify_OTP_, name='Verify_OTP_'),
+    path('Mentors_Edit_Profile/', views.Mentors_Edit_Profile, name='Mentors_Edit_Profile'),
+    # Mentor Forgotpassword
+    path('forgotpassword/', views.Mentors_ForgotPassword, name='mentors_forgotpassword'),
+    path('sendotp/', views.Mentors_SendOTP, name='mentors_sendotp'),
+    path('verifyotp/', views.Mentors_VerifyOTP, name='mentors_verifyotp'),
+    path('resetpassword/', views.Mentors_ResetPassword, name='mentors_resetpassword'),
+    # Mentor register OTP
+    path('mentors_forgot-password/', views.Mentors_ForgotPassword, name='Mentors_ForgotPassword'),
+    path('mentors_send-otp/', views.Mentors_SendOTP, name='Mentors_SendOTP'),
+    path('mentors_verify-otp/', views.Mentors_VerifyOTP, name='Mentors_VerifyOTP'),
+    path('mentors_reset-password/', views.Mentors_ResetPassword, name='Mentors_ResetPassword'),
 # End Mentors details
 
 # Start Text Book Details
@@ -40,4 +52,17 @@ urlpatterns = [
    path('Edit_Question_Paper/<int:edit_id>/',views.Edit_Question_Paper,name='Edit_Question_Paper'),
    path('Upload_Question_Paper/<int:upd_id>/',views.Upload_Question_Paper,name='Upload_Question_Paper'),
 # End Question Paper Details   
+
+# Start Upload Class Details
+   path('Upload_Record_Class/',views.Upload_Record_Class,name='Upload_Record_Class'),
+   path('get-courses-by-exam/', views.get_courses_by_exam, name='get_courses_by_exam'),
+   path('get-subjects-by-course/', views.get_subjects_by_course, name='get_subjects_by_course'),
+   path('Save_upload_record_class/',views.Save_upload_record_class,name='Save_upload_record_class'),
+   path('Display_Rcecord_Class/',views.Display_Rcecord_Class,name='Display_Rcecord_Class'),
+   path('Download_PDF_Rcecord_Class/<pk>/',views. Download_PDF_Rcecord_Class,name='Download_PDF_Rcecord_Class'),
+   path('Delete_Rcecord_Class/<int:del_id>/',views. Delete_Rcecord_Class,name='Delete_Rcecord_Class'),
+   path('Edit_Rcecord_Class/<int:edit_id>/',views.Edit_Rcecord_Class,name='Edit_Rcecord_Class'),
+   path('Upload_Upload_Record_Class/<int:upd_id>/',views.Upload_Upload_Record_Class,name='Upload_Upload_Record_Class'),
+# End Upload Class Details
+
 ]

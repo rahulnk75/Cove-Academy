@@ -1,0 +1,145 @@
+{% extends 'mentors_home_page.html' %}
+{% block content %}
+<section class="content-main">
+    <div class="row" style="margin-top:-60px;">
+        <div class="col-6">
+            <div class="content-header">
+                <h2 class="content-title">Upload Record Class</h2>
+
+            </div>
+        </div>
+    </div>
+    <form action="{% url 'Save_upload_record_class' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-4">
+                                    <label class="form-label">Mentors Id</label>
+                                    <input class="form-control" value="{{request.session.Email}}" name="Mentors_Id" readonly>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Select Exam</label>
+                                    <select class="form-select" name="exam" id="exam-dropdown">
+                                        <option></option>
+                                        {% for i in exam %}
+                                        <option value="{{ i.Exam_Category }}">{{ i.Exam_Category }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div> 
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Select Course</label>
+                                    <select class="form-select" name="course" id="course-dropdown">
+                                        <option></option>
+                                    </select>
+                                </div> 
+                                <div class="mb-4">
+                                    <label class="form-label">Select Subject</label>
+                                    <select class="form-select" name="subject" id="subject-dropdown">
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Topic Name</label>
+                                    <input type="text" placeholder="Type here" class="form-control" name="Subject_Name_">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Upload Record Class</label>
+                                    <input class="form-control" type="file" name="video_file_"  accept="video/*">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Upload Class PDF</label>
+                                    <input class="form-control" type="file" name="S_Pdf_file_" accept="application/pdf">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label">Description</label>
+                                    <textarea placeholder="Type here" class="form-control" rows="4"
+                                        name="Description_"></textarea>
+                                </div>
+                                <div>
+                                    <button class="btn btn-md rounded font-sm hover-up" type="submit">Upload</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </form>
+
+</section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Update courses when an exam is selected
+        $('#exam-dropdown').change(function () {
+            const examCategory = $(this).val();
+            if (examCategory) {
+                $.ajax({
+                    url: "{% url 'get_courses_by_exam' %}",
+                    data: { exam_category: examCategory },
+                    success: function (data) {
+                        let courseDropdown = $('#course-dropdown');
+                        courseDropdown.empty();
+                        courseDropdown.append('<option value="">Select Course</option>');
+                        data.forEach(course => {
+                            courseDropdown.append(`<option value="${course.Course_Name}">${course.Course_Name}</option>`);
+                        });
+                    }
+                });
+            }
+        });
+
+        // Update subjects when a course is selected
+        $('#course-dropdown').change(function () {
+            const courseName = $(this).val();
+            if (courseName) {
+                $.ajax({
+                    url: "{% url 'get_subjects_by_course' %}",
+                    data: { course_name: courseName },
+                    success: function (data) {
+                        let subjectDropdown = $('#subject-dropdown');
+                        subjectDropdown.empty();
+                        subjectDropdown.append('<option value="">Select Subject</option>');
+                        data.forEach(subject => {
+                            subjectDropdown.append(`<option value="${subject.Subject_Name}">${subject.Subject_Name}</option>`);
+                        });
+                    }
+                });
+            }
+        });
+    }); 
+</script> 
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+      {% for i in messages %}
+        {% if i.tags == 'success' %}
+         <script>
+            swal('{{i}}','','success');
+         </script>
+         {% elif i.tags == 'error' %}
+         <script>
+            swal('{{i}}','','error');
+         </script>
+         {% elif i.tags == 'warning' %}
+         <script>
+            swal('{{i}}','','warning');
+         </script>
+         {% else %}
+         <script>
+            swal('{{i}}','','info');
+         </script>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+
+{% endblock %}

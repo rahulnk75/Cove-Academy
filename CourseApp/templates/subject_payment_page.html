@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Subject Payment</title>
+    <title>Cove Academy_Subject Payment</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,9 +17,28 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{% static 'web/assets/css/main.css' %}">
 </head>
-
 <body>
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Payment Details</h5>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Full Name:</strong> <span id="modalFullName"></span></p>
+                    <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+                    <p><strong>Subject Name:</strong> <span id="modalSubjectName"></span></p>
+                    <p><strong>Total:</strong> ₹<span id="modalTotal"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirmButton">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="col-lg-12">
+        <form action="{% url 'Save_Subject_Payment_Page' %}" method="post" enctype="multipart/form-data">
         <div class="left_div">
             <div>
                 <img class="cove_img" src="{% static 'web/assets/imgs/theme/head_.png' %}">
@@ -29,16 +48,17 @@
             </div>
             <div>
                 <h3 class="wel">PROCEED TO PAYMENT</h3>
-                <h3 class="cove">RAHUL NK</h3>
+                <h3 class="cove">{{ obj.0.Full_Name|upper}}</h3>
+                <input type="hidden" value="{{request.session.Email}}" name="Email_">
+                <input type="hidden" value="{{ obj.0.Full_Name}}" name="Full_name_">
                 {% for i in pay_p %}
                 <h3 class="pre">{{i.Subject_Name}}</h3>
                 {% endfor %}
             </div>
-
         </div>
         <div class="right_div">
             <div class="p_full">
-                <form action="" method="post">
+                <form action="{% url 'Save_Subject_Payment_Page' %}" method="post">
                     {% csrf_token %}
                     <div class="order_review" style="height: 607px;">
                         <div class="">
@@ -52,7 +72,6 @@
                                         <th>Amount</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     {% for i in pay_p %}
                                     <tr>
@@ -65,6 +84,7 @@
                                         <td>₹{{i.Old_fees}}</td>
                                     </tr>
 
+                                    <input type="hidden" name="Subject_Name_" value="{{i.Subject_Name}}">
                                     <tr>
                                         <th>Price</th>
                                         <td class="product-subtotal" colspan="2">₹{{i.Old_fees}}</td>
@@ -78,10 +98,9 @@
                                         <td colspan="2" class="product-subtotal"><span
                                                 class="font-xl text-brand fw-900">₹{{i.Subject_fees}}</span></td>
                                     </tr>
+                                    <input type="hidden"  value="{{i.Subject_fees}}" name="Subject_fees_">
                                     {% endfor %}
                                 </tbody>
-
-
                             </table>
                             <h6 style="color: brown; font-weight: 900; margin-left: -280px;">Importent Reminder: This
                                 batch is non-refundable
@@ -93,6 +112,7 @@
                 </form>
             </div>
         </div>
+    </form>
 
     </div>
 
@@ -234,6 +254,38 @@
     </style>
 
     <!-- Vendor JS-->
+    <script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent form submission
+    
+            // Get form data
+            const fullName = document.querySelector("input[name='Full_name_']").value;
+            const email = document.querySelector("input[name='Email_']").value;
+            const subjectName = document.querySelector("input[name='Subject_Name_']").value;
+            const price = document.querySelector("input[name='Subject_fees_']").value;
+    
+            // Populate modal fields
+            document.getElementById("modalFullName").textContent = fullName;
+            document.getElementById("modalEmail").textContent = email;
+            document.getElementById("modalSubjectName").textContent = subjectName;
+            document.getElementById("modalTotal").textContent = price;
+    
+            // Show the modal
+            const modal = new bootstrap.Modal(document.getElementById("confirmationModal"));
+            modal.show();
+    
+            // Handle confirmation button
+            document.getElementById("confirmButton").onclick = function () {
+                modal.hide();
+                e.target.submit(); // Submit the form
+            };
+        });
+    </script>
+    
+
+
+
+
     <script src="{% static 'web/assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
     <script src="{% static 'web/assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'web/assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
@@ -254,21 +306,19 @@
     <script src="{% static 'web/assets/js/plugins/jquery.vticker-min.js' %}"></script>
     <script src="{% static 'web/assets/js/plugins/jquery.theia.sticky.js' %}"></script>
     <!-- Template  JS -->
-    <script src="{% static 'web/assets/js/main.js' %}"></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"
-    data-key="rzp_test_sXSjc7ZbwI7M3J"
-    data-amount="{{payy_str}}"
+    <script src="https://checkout.razorpay.com/v1/checkout.js" 
+    data-key="rzp_test_sXSjc7ZbwI7M3J" 
+    data-amount="{{ payy_str }}" 
     data-currency="INR"
-    data-order_id="{{payment.order_id}}"
-    data-buttontext=""
-    data-name="Course"
-    data-description="Your description"
-    data-image=""
-    data-prefill.name="abc"
-    data-prefill.email="abc@gmail.com"
-    data-theme.color="#4badeb"
-    ></script>
-    
+    data-order_id="{{ payment.id|default:'' }}" 
+    data-buttontext="Pay Now"
+    data-name="{{ obj.0.Full_Name|default:'User' }}" 
+    data-description="Payment for {{ pay_p.0.Subject_Name|default:'Subject' }}" 
+    data-image="" 
+    data-prefill.name="{{ obj.0.Full_Name|default:'Name' }}"
+    data-prefill.email="{{ obj.0.Email|default:'email@example.com' }}" 
+    data-theme.color="#4badeb">
+</script>
 
 </body >
 </html >

@@ -1,0 +1,105 @@
+{% extends 'mentors_home_page.html' %}
+{% block content %}
+<section class="content-main">
+    <div class="content-header" style="margin-top:-60px;">
+        <div>
+            <h2 class="content-title card-title">Record class Details</h2>
+            <!-- <p>Lorem ipsum dolor sit amet.</p> -->
+        </div>
+        <!-- <div>
+            <input type="text" placeholder="Search order ID" class="form-control bg-white">
+        </div> -->
+    </div>
+    <div class="card mb-4">
+       
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Mentors Id</th>
+                            <th scope="col">Exam</th>
+                            <th scope="col">Course</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Topic</th>
+                            <th scope="col">Record Class</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Class PDF</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Description</th>
+                            <th scope="col" class="text-end"> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in dis %}
+                        <td>{{i.Mentors_Id}}</td>
+                        <td>{{i.Exam}}</td>
+                        <td>{{i.Course}}</td>
+                        <td>{{i.Subject}}</td>
+                        <td>{{i.Topic_Name}}</td>       
+                        <td>
+                            {% if i.Upload_Class %}
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <video class="embed-responsive-item" controls style="width: 190px; height: 100px;">
+                                        <source src="{{ i.Upload_Class.url }}" type="video/mp4">
+                                        <source src="{{ i.Upload_Class.url }}" type="video/webm">
+                                        <source src="{{ i.Upload_Class.url }}" type="video/ogg">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            {% else %}
+                                <p>No video uploaded</p>
+                            {% endif %}
+                        </td>
+                        <td>{{i.Video_Duration}}</td>
+                        <td><a href="{% url 'Download_PDF_Rcecord_Class' i.pk %}">Download PDF</a></td>
+                        <td>{{i.Date}}</td>
+                        <td>{{i.Description}}</td>
+                            <td class="text-end">
+                                <a href="{% url 'Edit_Rcecord_Class' edit_id=i.id %}" class="btn btn-md rounded font-sm">Edit</a>
+                                <a href="{% url 'Delete_Rcecord_Class' del_id=i.id %}" class="btn btn-danger rounded font-sm">Delete</a> 
+                            </td>
+                        </tr>
+                        {% endfor %} 
+                    </tbody>
+                </table>
+            </div> <!-- table-responsive //end -->
+        </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+    <div class="pagination-area mt-15 mb-50">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-start">
+                <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                <li class="page-item"><a class="page-link" href="#">02</a></li>
+                <li class="page-item"><a class="page-link" href="#">03</a></li>
+                <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                <li class="page-item"><a class="page-link" href="#">16</a></li>
+                <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+      {% for i in messages %}
+        {% if i.tags == 'success' %}
+         <script>
+            swal('{{i}}','','success');
+         </script>
+         {% elif i.tags == 'error' %}
+         <script>
+            swal('{{i}}','','error');
+         </script>
+         {% elif i.tags == 'warning' %}
+         <script>
+            swal('{{i}}','','warning');
+         </script>
+         {% else %}
+         <script>
+            swal('{{i}}','','info');
+         </script>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+{% endblock %}

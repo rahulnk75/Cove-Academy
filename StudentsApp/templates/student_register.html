@@ -46,15 +46,16 @@
             <div class="line"></div>
             <form action="{% url 'Save_Student_Register' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="text" class="Full_name" placeholder="Full name" name="full_name_"><br>
+                <input type="text" class="Full_name" placeholder="Full name" name="full_name"><br>
                 <input class="f_n" type="text" value="+91">
-                <input class="mobile" type="tel" placeholder="Enter your mobile number" name="mobile_">
-                <input type="email" class="Email" placeholder="Email" name="email_">
-                <input type="password" class="Password" placeholder="Password" name="password_">
-                <input type="password" class="Password" placeholder="Confirm-Password" name="c_password_">
+                <input class="mobile" type="tel" placeholder="Enter your mobile number" name="mobile">
+                <input type="email" class="Email" placeholder="Email" name="email">
+                <input type="password" class="Password" placeholder="Password" name="password">
+                <input type="password" class="Password" placeholder="Confirm-Password" name="c_password">
                 <p class="by">By continuing you agree to all our <a href="">Terms & Conditions</a></p>
-               <button class="btn">Continue</button>
+                <button class="btn">Continue</button>
             </form>
+            
 
             <div class="text-muted text-center" style="margin-top: 30px;">Already have an account? <a style="font-weight: 600;" href="{% url 'Student_LogIn' %}"> Log in now</a></div>
         </div>

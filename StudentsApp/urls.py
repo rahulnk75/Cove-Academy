@@ -7,7 +7,13 @@ urlpatterns = [
     path('Student_LogIn/',views.Student_LogIn,name='Student_LogIn'),
     path('Save_Student_LogIn/',views.Save_Student_LogIn,name='Save_Student_LogIn'),
     path('Student_Logout/',views.Student_Logout,name='Student_Logout'),
-    path('OTP_page/',views.OTP_page,name='OTP_page')
+    path('verify_otp/', views.Verify_OTP, name='verify_otp'),
+
+    path('forgot_password/', views.ForgotPassword, name='forgot_password'),
+    path('send_otp/', views.SendOTP, name='send_otp'),
+    path('VerifyOTP/', views.VerifyOTP, name='VerifyOTP'),
+    path('reset_password/', views.ResetPassword, name='reset_password'),
+    
     
     
 ]
