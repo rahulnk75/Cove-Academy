@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from MentorsApp.models import TextBook_Db,Study_Material_Db,Question_Paper_Db,Mentors_Register_Db,Record_Class_Db
+from MentorsApp.models import TextBook_Db,Study_Material_Db,Question_Paper_Db,Mentors_Register_Db,Record_Class_Db,Save_Live_Details_DB
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
@@ -9,21 +9,22 @@ from django.http import JsonResponse
 from moviepy.video.io.VideoFileClip import VideoFileClip
 from datetime import timedelta
 import random
-from django.core.mail import send_mail
+from django.core.mail import send_mail 
 from django.conf import settings
 import string 
-from CourseApp.models import Payment_DB,Subject_Payment_DB
-
+from CourseApp.models import Payment_DB,Subject_Payment_DB,Course_Comments_DB
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt  
  
-# Create your views here.
-
+# Create your views here. 
 def Mentors_Home_Page(request):
     details=Record_Class_Db.objects.all()
     course_count = Course_Db.objects.count()
     subject_count = Subject_Db.objects.count()
+    C_comment_=Course_Comments_DB.objects.all()
     total_count = course_count + subject_count
-    total_students = Payment_DB.objects.values('Email').distinct().count() + Subject_Payment_DB.objects.values('Email').distinct().count()
-    return render(request, 'mentors_home_page.html',{'total_students': total_students,'course_count': course_count,'subject_count': subject_count,'total_count': total_count,'details':details})
+    total_students = Payment_DB.objects.values('Email').distinct().count() + Subject_Payment_DB.objects.values('Subject_Email').distinct().count()
+    return render(request, 'mentors_home_page.html',{'total_students': total_students,'course_count': course_count,'subject_count': subject_count,'total_count': total_count,'details':details,'C_comment_':C_comment_})
     
 
 # start Mentors details 
@@ -189,6 +190,7 @@ def Save_Textbook(request):
         _Description=request.POST.get('Description_')
         obj=TextBook_Db(Subject_name=_Subject_Name,Scert_Ncert=_Scert_Ncert,Class=_Class,PDF_file=_PDF_file,Textbook_Images=_Textbook_Images,Description=_Description)
         obj.save()
+        messages.success(request,"Item Added Auccessfully...!!!")
         return redirect(Add_Textbook_Page)
 
 def Download_PDF_Textbook(request, pk):
@@ -206,6 +208,7 @@ def Display_Textbook(request):
 def Delete_Textbook(request,del_id):
     delt=TextBook_Db.objects.filter(id=del_id)
     delt.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
     return redirect(Display_Textbook)
 
 def Edit_Textbook(request,edit_id):
@@ -247,6 +250,7 @@ def Save_Study_Material(request):
         _Description=request.POST.get('Description_')
         obj=Study_Material_Db(Subject_name=_Subject_Name,Topic=_Topic,S_PDF_file=_S_Pdf_file_,Description=_Description)
         obj.save()
+        messages.success(request,"Item Added Auccessfully...!!!")
         return redirect(Add_Study_Material)
 
 def Download_PDF_Study_Material(request, pk):
@@ -264,6 +268,7 @@ def Display_Study_Material(request):
 def Delete_Study_Material(request,del_id):
     delt=Study_Material_Db.objects.filter(id=del_id)
     delt.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
     return redirect(Display_Study_Material)
 
 def Edit_Study_Material(request,edit_id):
@@ -283,6 +288,7 @@ def Upload_Study_Material(request,upd_id):
 
         _Description=request.POST.get('Description_')
         Study_Material_Db.objects.filter(id=upd_id).update(Subject_name=_Subject_Name,Topic=_Topic,S_PDF_file=S_Pdf_file,Description=_Description)
+        messages.success(request,"Successfully Updated...!!!")
         return redirect(Display_Study_Material)
 # End Study material Details
 # start Question Paper Details
@@ -297,6 +303,7 @@ def Save_Question_Paper(request):
         _Description=request.POST.get('Description_')
         obj=Question_Paper_Db(Exam_Name=_Exam_Name,Date=_Date,Q_PDF_file=_Q_Pdf_file_,Description=_Description)
         obj.save()
+        messages.success(request,"Item Added Auccessfully...!!!")
         return redirect(Add_Study_Material)
 
 def Download_PDF_Question_Paper(request, pk):
@@ -314,6 +321,7 @@ def Display_Question_Paper(request):
 def Delete_Question_Paper(request,del_id):
     delt=Question_Paper_Db.objects.filter(id=del_id)
     delt.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
     return redirect(Display_Question_Paper)
 
 def Edit_Question_Paper(request,edit_id):
@@ -333,6 +341,7 @@ def Upload_Question_Paper(request,upd_id):
 
         _Description=request.POST.get('Description_')
         Question_Paper_Db.objects.filter(id=upd_id).update(Exam_Name=_Exam_Name,Date=_Date,Q_PDF_file=Q_Pdf_file,Description=_Description)
+        messages.success(request,"Successfully Updated...!!!")
         return redirect(Display_Question_Paper)
 
 # End Question Paper Details
@@ -381,6 +390,7 @@ def Save_upload_record_class(request):
                 fs.delete(file_path)
         record = Record_Class_Db(Mentors_Id=Mentors_Id,Exam=exam,Course=course,Subject=subject,Topic_Name=topic_name,Description=description,Upload_Class=video_file,Upload_PDF=pdf_file,Video_Duration=video_duration)
         record.save()
+        messages.success(request,"Successfully Updated...!!!")
         return redirect("Upload_Record_Class")
     
 def Display_Rcecord_Class(request):
@@ -398,6 +408,7 @@ def Download_PDF_Rcecord_Class(request, pk):
 def Delete_Rcecord_Class(request,del_id):
     delt=Record_Class_Db.objects.filter(id=del_id)
     delt.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
     return redirect(Display_Rcecord_Class)
 
 
@@ -451,11 +462,57 @@ def Upload_Upload_Record_Class(request, upd_id):
             print(f"Error handling PDF file: {e}")
             pdf_path = Record_Class_Db.objects.get(id=upd_id).Upload_PDF
 
-        Record_Class_Db.objects.filter(id=upd_id).update(Mentors_Id=Mentors_Id,Exam=exam,Course=course,Subject=subject,Topic_Name=topic_name,Description=description,Upload_Class=video_file,Upload_PDF=pdf_path,Video_Duration=video_duration,
-        )
+        Record_Class_Db.objects.filter(id=upd_id).update(Mentors_Id=Mentors_Id,Exam=exam,Course=course,Subject=subject,Topic_Name=topic_name,Description=description,Upload_Class=video_file,Upload_PDF=pdf_path,Video_Duration=video_duration,)
+        messages.success(request,"Successfully Updated...!!!") 
         return redirect("Upload_Record_Class")
 
 # End Upload Class Details
+# Start Comments Details
+def Display_Course_Comments(request):
+    comment_=Course_Comments_DB.objects.all()
+    return render(request,'display_course_comments.html',{'comment_':comment_})
+# End Comments Details
+# Start Live Details
+def Start_Live(request):
+    Email_= Mentors_Register_Db.objects.filter(Email=request.session.get('Email'))
+    return render (request,'start_live.html',{'Email_':Email_})
 
+def Start_Live_Class(request):
+    Email_= Mentors_Register_Db.objects.filter(Email=request.session.get('Email'))
+    exam=Exam_Db.objects.all()
+    course=Course_Db.objects.all()
+    subject=Subject_Db.objects.all()
+    return render(request,'Start_live_class.html',{'exam':exam,'course':course,'subject':subject,'Email_':Email_})
 
+def Join_Live_class(request):
+    if request.method=='POST':
+        roomID=request.POST['roomID']
+        return redirect("/MentorsApp/Start_Live_Class?roomID=" + roomID)
+    return render(request,'join_live_class.html')   
 
+@csrf_exempt 
+def Save_Live_Details(request):
+    if request.method == "POST":
+        _Mentors_Name = request.POST.get("Mentors_Name_")
+        _Exam = request.POST.get("Exam_")
+        _Course = request.POST.get("Course_")
+        _Subject = request.POST.get("Subject_")
+        _Topic_Name = request.POST.get("Topic_Name_")
+        _Personal_link = request.POST.get("Personal_link_")
+        details = Save_Live_Details_DB(Mentors_Name=_Mentors_Name,Exam=_Exam, Course=_Course,Subject=_Subject,Topic_Name=_Topic_Name,Personal_link=_Personal_link,)
+        details.save()
+        return HttpResponse(status=204)  
+    return HttpResponse(status=400) 
+ 
+
+       
+def Display_Live_Details(request):
+    details=Save_Live_Details_DB.objects.all()
+    return render(request,'display_live_details.html',{'details':details})
+
+def Delete_Live_Details(request,del_id):
+    delt=Save_Live_Details_DB.objects.filter(id=del_id)
+    delt.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
+    return redirect(Display_Live_Details)
+# End Live Details

@@ -31,6 +31,8 @@ urlpatterns = [
     path('StudentsApp/',include(StudentsApp.urls)),
     path('MentorsApp/',include(MentorsApp.urls)),
     path('CourseApp/',include(CourseApp.urls)),
+     path('auth/', include('social_django.urls', namespace='social')),
+    
 ]
 
 urlpatterns+=staticfiles_urlpatterns()

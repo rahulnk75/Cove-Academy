@@ -3,9 +3,10 @@ from Frontend . models import Contact_Db
 from Backend . models import Course_Db,Subject_Db
 from StudentsApp .models import Register_Db
 import razorpay
+from django.contrib import messages
 from MentorsApp.models import Record_Class_Db
-from CourseApp.models import Payment_DB,Subject_Payment_DB
-from Frontend.views import Home_Page
+from CourseApp.models import Payment_DB,Subject_Payment_DB,Course_Comments_DB
+from Frontend.views import Course_Page,Edit_Profile
 
 
 # Create your views here.
@@ -14,9 +15,10 @@ def Courses_Filterd(request,Cour_name):
     return render(request,'course_filterd.html',{'cour':cour})  
 
 def Subject_Filterd(request,sub_name,Ex_id):
-    sub=Subject_Db.objects.filter(Course_Name=sub_name) 
+    Com_user = Register_Db.objects.filter(User_Email=request.session.get('User_Email'))
+    sub=Subject_Db.objects.filter(Course_Name=sub_name)
     Ex_course=Course_Db.objects.filter(id=Ex_id)
-    return render(request,'subject_filterd.html',{'sub':sub,'Ex_course':Ex_course})
+    return render(request,'subject_filterd.html',{'sub':sub,'Ex_course':Ex_course,'Com_user':Com_user})
 
 
 def Class_Page(request, sub_id,sub_name_id): 
@@ -48,7 +50,7 @@ def Save_Payment_Page(request):
         _Course_fees=request.POST.get('Course_fees_')
         obj=Payment_DB(Full_Name=_Full_name,Email=_Email,Course_Name=_Course_name,Course_Fees=_Course_fees)
         obj.save()
-        return redirect(Home_Page)
+        return redirect(Edit_Profile)
        
 
 def Subject_Payment_Page(request, pay_id):
@@ -74,6 +76,18 @@ def Save_Subject_Payment_Page(request):
         _Email = request.POST.get('Email_')
         _Subject_Name = request.POST.get('Subject_Name_')
         _Subject_fees = request.POST.get('Subject_fees_')
-        obj = Subject_Payment_DB(Full_Name=_Full_name,Email=_Email,Subject_Name=_Subject_Name, Subject_Fees=_Subject_fees)
+        obj = Subject_Payment_DB(Full_Name=_Full_name,Subject_Email=_Email,Subject_Name=_Subject_Name, Subject_Fees=_Subject_fees)
         obj.save()
-        return redirect('Home_Page')
+        return redirect(Edit_Profile)
+    
+def Save_Course_Comments(request):
+    if request.method == 'POST':
+        C_user=request.POST.get('C_user')
+        C_Cours_name=request.POST.get('C_Cours_name')
+        C_comment=request.POST.get('C_comment')
+        Comment=Course_Comments_DB(C_User=C_user,C_Cours_Name=C_Cours_name,C_Comment=C_comment)
+        Comment.save()
+        messages.success(request,'Thank You For Your Comment...!!!')
+        return redirect(Course_Page)
+    
+

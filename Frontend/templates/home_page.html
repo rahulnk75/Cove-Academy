@@ -30,17 +30,20 @@
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
-                            <form action="#">
-                                <select class="select-active">
-                                    <option>All Categories</option>
-                                    <option>IBPS</option>
-                                    <option>SSC</option>
-                                    <option>RRB</option>
-                                    <option>State PSC</option>
-                                    <option>Bank Exam</option>
+
+                            <form action="{% url 'search' %}" method="get">
+                                <select name="category" class="select-active">
+                                    <option value="">All Categories</option>
+                                    <option value="IBPS">IBPS</option>
+                                    <option value="SSC">SSC</option>
+                                    <option value="RRB">RRB</option>
+                                    <option value="State PSC">State PSC</option>
+                                    <option value="Bank Exam">Bank Exam</option>
                                 </select>
-                                <input type="text" placeholder="Search for items...">
+                                <input type="text" name="q" placeholder="Search for items...">
+                                <button hidden type="submit">Search</button>
                             </form>
+                            
                         </div>
                                 <div class="hotline d-none d-lg-block" style="margin-right:-40px;">
                                     {% if request.session.User_Email %}
@@ -356,27 +359,27 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6">
                         <div class="banner-img wow fadeIn animated">
-                            <img src="{% static 'web/assets/imgs/banner/live.jpeg' %}" style="height: 160px;" alt="">
+                           <a href="{% url 'Live_Class_Page' %}"> <img src="{% static 'web/assets/imgs/banner/live.jpeg' %}" style="height: 160px;" alt=""></a>
                             <div class="banner-text">
                                 <span> </span>
-                                <h4>Live <br> Courses</h4>
-                                <a href="shop-grid-right.html"><i class="fi-rs-arrow-right"></i></a>
+                                <a href="{% url 'Live_Class_Page' %}"><h4>Live <br> Courses</h4></a>
+                                <a href="{% url 'Live_Class_Page' %}"><i class="fi-rs-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <div class="banner-img wow fadeIn animated">
-                            <img src="{% static 'web/assets/imgs/banner/images (2).jpeg' %}" style="height: 160px;" alt="">
+                            <a href="{% url 'Mock_Test_Page' %}"><img src="{% static 'web/assets/imgs/banner/images (2).jpeg' %}" style="height: 160px;" alt=""></a>
                             <div class="banner-text">
                                 <span> </span>
-                                <h4>Test <br>Series</h4>
-                                <a href="shop-grid-right.html"> <i class="fi-rs-arrow-right"></i></a>
+                               <a href="{% url 'Mock_Test_Page' %}"><h4>Test <br>Series</h4></a> 
+                                <a href="{% url 'Mock_Test_Page' %}"> <i class="fi-rs-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 d-md-none d-lg-flex">
                         <div class="banner-img wow fadeIn animated  mb-sm-0">
-                            <img src="{% static 'web/assets/imgs/banner/reco.jpeg' %}" style="height: 160px;" >
+                           <a href="{% url 'Course_Page' %}"> <img src="{% static 'web/assets/imgs/banner/reco.jpeg' %}" style="height: 160px;" ></a>
                             <div class="banner-text">
                                 <span> </span>
                               <a href="{% url 'Course_Page' %}">  <h4>Recorded<br>Courses</h4></a>
@@ -399,7 +402,7 @@
                         <div class="product-cart-wrap small hover-up">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
-                                    <a href="shop-product-right.html">
+                                    <a href="#">
                                         <img class="default-img"
                                             src="{{i.Subject_Images.url}}" style="height: 150px;" alt="">
                                         <!-- <img class="hover-img" src="{{i.Subject_Images.url}}" style="height: 200px;"
@@ -417,14 +420,14 @@
                                         tabindex="0"><i class="fi-rs-shuffle"></i></a>
                                 </div> -->
                                 <div class="product-badges product-badges-position product-badges-mrg">
-                                    <span class="hot">Hot</span>
+                                    <!-- <span class="hot"></span> -->
                                 </div>
                             </div>
                             <div class="product-content-wrap">
                                 <div class="product-category">
                                     <a href="shop-grid-right.html">{{i.Course_Name}}</a>
                                 </div>
-                                <h2><a href="shop-product-right.html">{{i.Subject_Name}}</a></h2>
+                                <h2><a href="shop-product-right.html">{{i.Subject_Name | upper}}</a></h2>
                                 <div class="rating-result" title="90%">
                                     <span>
                                     </span>

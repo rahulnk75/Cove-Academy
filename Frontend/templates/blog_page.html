@@ -1,12 +1,494 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>blog</p>
-</body>
-</html>
+{% load static %}
+<html class="no-js" lang="en">
 
+<head>
+    <meta charset="utf-8">
+    <title>Cove Academy_Study Materials</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'web/assets/css/main.css' %}">
+</head>
+
+<body>
+    <header class="header-area header-style-1 header-height-2">
+        <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="header-wrap">
+                    <div class="logo logo-width-1">
+                        <a href="{% url 'Home_Page' %}"><img src="{% static 'web/assets/imgs/theme/head_.png' %}" style="width: 250px;"  alt="logo"></a>
+                    </div>
+                    <div class="header-right">
+                        <div class="search-style-2">
+                            <form action="#">
+                                <select class="select-active">
+                                    <option>All Categories</option>
+                                    <option>IBPS</option>
+                                    <option>SSC</option>
+                                    <option>RRB</option>
+                                    <option>State PSC</option>
+                                    <option>Bank Exam</option>
+                                </select>
+                                <input type="text" placeholder="Search for items...">
+                            </form>
+                        </div>
+                                <div class="hotline d-none d-lg-block" style="margin-right:-40px;">
+                                    {% if request.session.User_Email %}
+                                    <div class="col-nav" style="padding-left: 50px;">
+
+                                        <ul class="nav">
+                                            <li class="dropdown nav-item">
+                                                <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                                                    id="dropdownAccount" aria-expanded="false"> <img
+                                                        class="img-xs rounded-circle"
+                                                        src="{% static 'web/assets/imgs/theme/avatar2.jpg' %}"
+                                                        style="width:40px ; " alt="User"></a>
+                                                <div class="dropdown-menu dropdown-menu-end"
+                                                    aria-labelledby="dropdownAccount">
+    
+                                                    <a class="dropdown-item" href="#"><i>User: {{request.session.User_Email}}</i></a>
+    
+                                                    <a class="dropdown-item" href="{% url 'Edit_Profile' %}"><i
+                                                            class="material-icons md-perm_identity"></i>My Profile</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="{% url 'Student_Logout' %}"><i
+                                                            class="material-icons md-exit_to_app"></i>Logout</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                     {% else %}
+                                    <p><a style="margin-left: 20px; font-size: 20px; color: brown;" href="{% url 'Student_LogIn' %}"  class="btn-fill-out btn-block hover-up">LogIn</a></p>
+                                     {% endif %}
+                                </div>
+                                
+                            </div>
+                            <div>
+                                <a class="dropdown-item btn-fill-out btn-block hover-up" href="{% url 'Student_Logout' %}" style="margin-left: 40px; margin-right: -80px; font-size: 15px; font-weight: 600; background: none;" ><i> {{request.session.User_Email}}</i></a> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom header-bottom-bg-color sticky-bar">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1 d-block d-lg-none">
+                        <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
+                    </div>
+                    <div class="header-nav d-none d-lg-flex">
+                        <div class="main-categori-wrap d-none d-lg-block">
+                            <a class="categori-button-active" href="#">
+                                <span class="fi-rs-apps"></span> All Exams
+                            </a>
+                            <div class="categori-dropdown-wrap categori-dropdown-active-large">
+                                <ul>
+                                
+                                    <li class="has-children">
+                                        <a href="{% url 'Course_Page' %}"><i class="evara-font-desktop"></i>IBPS</a>
+                                        
+                                    </li>
+                                    <li class="has-children">
+                                        <a href="{% url 'Course_Page' %}"><i class="evara-font-desktop"></i>SSC</a>
+                                        
+                                    </li>
+                                    <li class="has-children">
+                                        <a href="{% url 'Course_Page' %}"><i class="evara-font-desktop"></i>RRB</a>
+                                        
+                                    </li>
+                                    <li class="has-children">
+                                        <a href="{% url 'Course_Page' %}"><i class="evara-font-desktop"></i>State PSC</a>
+                                       
+                                    </li>
+                                    <li class="has-children">
+                                        <a href="{% url 'Course_Page' %}"><i class="evara-font-desktop"></i>Bank Exams</a>
+                                        
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block" >
+                            <nav>
+                                <ul>
+                                    <li><a href="{% url 'Home_Page' %}">Home <i></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'About_Page' %}">About</a>
+                                    </li>
+                                    <li><a href="{% url 'Course_Page' %}">Full Courses<i class=""></i></a>
+
+                                    </li>
+                                    
+                                    <li class="position-static"><a href="{% url 'Subject_Page' %}">All Subjects<i class=""></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'Chat_Page' %}">Group Chat</a>
+                                    </li>
+                                    <li><a class="active"  href="{% url 'Blog_page' %}">Blog <i class=""></i></a>                                     
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'Contact_Page' %}">Contact</a>
+                                    </li>
+                                    <li><a  href="#">More<i class="fi-rs-angle-down"></i></a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{% url 'View_Study_Material' %}">Study material</a></li>
+                                            <li><a href="{% url 'View_Question_Paper' %}">Question paper</a></li>
+                                            <li><a href="{% url 'View_Textbook_Page' %}">Text book</a></li>
+                                            <li><a href="{% url 'Mock_Test_Page' %}">Mock test</a></li>
+                                            <li><a href="{% url 'Live_Class_Page' %}">Live class</a></li>
+                                            <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
+                                            <li><a href="page-terms.html">Terms of Service</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="hotline d-none d-lg-block">
+                       <a class="dropdown-item  hover-up" style="background-color: white;" href="{% url 'Live_Class_Page' %}"><p><i class="fi-rs-headset"></i><span style="color: brown;">Live Class</span></p></a>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main" style="margin-top:20px;">
+        <div class="single-header mb-50 text-center">
+            <h1 class="font-xx text-brand">Blog</h1>
+
+        </div>
+        <div class="tab-content shop_info_tab entry-main-content">
+            <div class="tab-pane fade show active" id="Description">
+                <div class="">
+                    <section class="mt-50 mb-50">
+                        <div class="container custom">
+                            <div class="row">
+                               
+                                <div class="col-lg-12">
+                                    <div class="loop-grid pr-30">
+                                        <div class="row">
+                                            {% for i in view %}
+                                            <div class="col-lg-3">
+                                                <article
+                                                    class="wow fadeIn animated hover-up mb-30">
+                                                    <div class="post-thumb img-hover-scale">
+                                                       
+                                                    </div>
+                                                    <div class="entry-content-2">
+                                                        <h4 class="post-title  ">
+                                                            <a href="blog-post-right.html">
+                                                                {{i.Subject_name}}</a>
+                                                        </h4>
+                                                        <p class="post-exerpt font-sm mb-15">
+                                                            {{i.Topic}} </p>
+                                                        <div>                                 
+                                                            <a class="btn"  style="padding: 5px; " href="{% url 'Download_PDF_Study_Material' i.pk %}">Download PDF</a>   
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                  
+                                    <!--post-grid-->
+                                    <div class="pagination-area mt-15 mb-lg-0">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination justify-content-start">
+                                                <li class="page-item active"><a
+                                                        class="page-link" href="#">01</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="#">02</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="#">03</a></li>
+                                                <li class="page-item"><a class="page-link dot"
+                                                        href="#">...</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="#">16</a></li>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="#"><i
+                                                            class="fi-rs-angle-double-small-right"></i></a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            
+            
+        </div>
+    </main>
+    <footer class="main">
+        <section class="newsletter p-30 text-white wow fadeIn animated">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 mb-md-3 mb-lg-0">
+                        <div class="row align-items-center">
+                            <div class="col flex-horizontal-center">
+                                <img class="icon-email" src="{% static 'web/assets/imgs/theme/icons/icon-email.svg' %}"
+                                    alt="">
+                                <h4 class="font-size-20 mb-0 ml-3">Sign up to Newsletter</h4>
+                            </div>
+                            <div class="col my-4 my-md-0 des">
+                                <h5 class="font-size-15 ml-4 mb-0"><strong>Cove Academy</strong></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <!-- Subscribe Form -->
+                        <form class="form-subcriber d-flex wow fadeIn animated">
+                            <input type="email" class="form-control bg-white font-small" placeholder="Enter your email">
+                            <button class="btn bg-dark text-white" type="submit">Subscribe</button>
+                        </form>
+                        <!-- End Subscribe Form -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section-padding footer-mid">
+            <div class="container pt-15 pb-20">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="widget-about font-md mb-md-5 mb-lg-0">
+                            <div class="logo logo-width-1 wow fadeIn animated">
+                                <a href="index.html"><img src="{% static 'web/assets/imgs/theme/head_.png' %}"
+                                        alt="logo"></a>
+                            </div>
+                            <h5 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h5>
+                            <p class="wow fadeIn animated">
+                                <strong>Address: </strong>Cove Academy
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Phone: </strong>04884 250617 /(+91) 987654321
+                            </p>
+                            <p class="wow fadeIn animated">
+                                <strong>Hours: </strong>10:00 - 10:00, Mon - Sat
+                            </p>
+                            <h5 class="mb-10 mt-30 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h5>
+                            <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                                <a href="#"><img src="{% static 'web/assets/imgs/theme/icons/icon-facebook.svg' %}"
+                                        alt=""></a>
+                                <a href="#"><img src="{% static 'web/assets/imgs/theme/icons/icon-twitter.svg' %}"
+                                        alt=""></a>
+                                <a href="#"><img src="{% static 'web/assets/imgs/theme/icons/icon-instagram.svg' %}"
+                                        alt=""></a>
+                                <a href="#"><img src="{% static 'web/assets/imgs/theme/icons/icon-pinterest.svg' %}"
+                                        alt=""></a>
+                                <a href="#"><img src="{% static 'web/assets/imgs/theme/icons/icon-youtube.svg' %}"
+                                        alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">About</h5>
+                        <ul class="footer-list wow fadeIn animated mb-sm-5 mb-md-0">
+                            <li><a href="{% url 'About_Page' %}">About Us</a></li>
+                            <li><a href="{% url 'Course_Page' %}">Full Courses</a></li>
+                            <li><a href="{% url 'Subject_Page' %}">All Subjects</a></li>
+                            <li><a href="{% url 'Chat_Page' %}">Group Chat</a></li>
+                            <li><a href="{% url 'Blog_page' %}">Blog</a></li>
+                            <li><a href="{% url 'Contact_Page' %}">Contact Us</a></li>
+                            
+                        </ul>
+                    </div>
+                    <div class="col-lg-2  col-md-3">
+                        <h5 class="widget-title wow fadeIn animated">My Account</h5>
+                        <ul class="footer-list wow fadeIn animated">
+                            <li><a href="{% url 'Student_LogIn' %}">Sign In</a></li>
+                            <li><a href="{% url 'Student_Register' %}">Register</a></li>
+                            <li><a href="{% url 'Contact_Page' %}">Help</a></li>
+                            <li><a href="{% url 'View_Study_Material' %}">Study material</a></li>
+                            <li><a href="{% url 'View_Question_Paper' %}">Question paper</a></li>
+                            <li><a href="{% url 'View_Textbook_Page' %}">Text book</a></li>
+                           
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="widget-title wow fadeIn animated">Install App</h5>
+                        <div class="row">
+                            <div class="col-md-8 col-lg-12">
+                                <p class="wow fadeIn animated">From App Store or Google Play</p>
+                                <div class="download-app wow fadeIn animated">
+                                    <a href="#" class="hover-up mb-sm-4 mb-lg-0"><img class="active"
+                                            src="{% static 'web/assets/imgs/theme/app-store.jpg' %}" alt=""></a>
+                                    <a href="#" class="hover-up"><img
+                                            src="{% static 'web/assets/imgs/theme/google-play.jpg' %}" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-12 mt-md-3 mt-lg-0">
+                                <p class="mb-20 wow fadeIn animated">Secured Payment Gateways</p>
+                                <img class="wow fadeIn animated"
+                                    src="{% static 'web/assets/imgs/theme/payment-method.png' %}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container pb-20 wow fadeIn animated">
+            <div class="row">
+                <div class="col-12 mb-20">
+                    <div class="footer-bottom"></div>
+                </div>
+                <div class="col-lg-6">
+                    <p class="float-md-left font-sm text-muted mb-0">&copy; 2025 <strong
+                            class="text-brand">-Cove Academy</strong></p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-lg-end text-start font-sm text-muted mb-0">
+                        Designed by <a href="http://alithemes.com" target="_blank">Cove Academy.com</a>. All rights
+                        reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <style>
+        .t_body {
+            width: 100%;
+            height: 800px;
+            background-color: #e5e7eb;
+            padding-top: 20px;
+
+        }
+
+        .navbar {
+            width: 1065px;
+            height: 80px;
+            margin-left: 153px;
+            background-color: rgb(7, 178, 201);
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .cove_img {
+            width: 182px;
+            height: 64px;
+        }
+
+        .heading {
+            width: 600px;
+            height: 65px;
+            background-color: rgb(7, 178, 201);
+            border: none;
+            font-size: 25px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .navbar2 {
+            width: 1065px;
+            height: 45px;
+            margin-left: 153px;
+            background-color: white;
+            margin-top: 1px;
+            padding-top: 10px;
+        }
+
+        .Description {
+            color: black;
+            font-size: 15px;
+            margin-left: 15px;
+            padding-top: 25px;
+            font-weight: 600;
+
+
+        }
+
+        .include {
+            height: 465px;
+            width: 650px;
+            background-color: white;
+            margin-top: 20px;
+            margin-left: 153px;
+            border-radius: 10px;
+        }
+
+        .this {
+            margin-left: 20px;
+            padding-top: 20px;
+            font-weight: 600;
+        }
+
+        .one {
+            margin-left: 79px;
+            margin-top: -24px;
+        }
+
+        .card1 {
+            margin-left: 850px;
+            margin-top: -469px;
+        }
+
+        .desci {
+            margin-left: 20px;
+            padding-top: 25px;
+
+            font-size: 18px;
+        }
+
+        .course {
+            margin-left: 20px;
+            margin-top: 40px;
+            font-weight: 900;
+
+        }
+
+        .All_hi {
+            margin-left: 25px;
+            margin-top: 15px;
+
+            font-size: 15px;
+
+        }
+
+        .All_hi1 {
+            margin-left: 25px;
+            margin-top: 8px;
+
+            font-size: 15px;
+
+        }
+    </style>
+
+    <!-- Vendor JS-->
+    <script src="{% static 'web/assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/slick.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.syotimer.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/wow.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery-ui.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/magnific-popup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/select2.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/waypoints.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/counterup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/images-loaded.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/isotope.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/scrollup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.vticker-min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.theia.sticky.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.elevatezoom.js' %}"></script>
+    <!-- Template  JS -->
+    <script src="{% static 'web/assets/js/main.js' %}"></script>
+    <script src="{% static 'web/assets/js/shop.js' %}"></script>
+</body>
+
+</html>

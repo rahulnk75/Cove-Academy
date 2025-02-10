@@ -27,7 +27,7 @@
                         {% for i in display %}
                         <td><img src="{{i.Images.url}}" style="width: 70px; height: 70px;"></td>
                         <td>{{i.Exam_Category}}</td>
-                        <td>{{i.Description}}</td>
+                        <td style="width: 563px;">{{i.Description}}</td>
                             
                             <td class="text-end">
                                 <a href="{% url 'Edit_Exam_Category' edit_id=i.id %}" class="btn btn-md rounded font-sm">Edit</a>
@@ -53,4 +53,26 @@
         </nav>
     </div>
 </section>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+      {% for i in messages %}
+        {% if i.tags == 'success' %}
+         <script>
+            swal('{{i}}','','success');
+         </script>
+         {% elif i.tags == 'error' %}
+         <script>
+            swal('{{i}}','','error');
+         </script>
+         {% elif i.tags == 'warning' %}
+         <script>
+            swal('{{i}}','','warning');
+         </script>
+         {% else %}
+         <script>
+            swal('{{i}}','','info');
+         </script>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
 {% endblock %}

@@ -9,12 +9,9 @@ urlpatterns = [
     path('Subject_Payment_Page/<int:pay_id>/',views.Subject_Payment_Page,name='Subject_Payment_Page'),
     path('Save_Payment_Page/',views.Save_Payment_Page,name='Save_Payment_Page'),
     path('Save_Subject_Payment_Page/',views.Save_Subject_Payment_Page,name='Save_Subject_Payment_Page'),
+    path('Save_Course_Comments/',views.Save_Course_Comments,name='Save_Course_Comments'),
 
-
-     
-
-    
-
+   
     
 
 

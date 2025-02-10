@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     <div class="hotline d-none d-lg-block">
-                       <a href="{% url 'Live_Class_Page' %}"><p><i class="fi-rs-headset"></i><span style="color: brown;">Live Class</span></p></a>
+                       <a class="dropdown-item  hover-up" style="background-color: white;" href="{% url 'Live_Class_Page' %}"><p><i class="fi-rs-headset"></i><span style="color: brown;">Live Class</span></p></a>
                     </div>    
                 </div>
             </div>
@@ -193,10 +193,10 @@
                                                     <div class="entry-content-2">
                                                         <h4 class="post-title  ">
                                                             <a href="blog-post-right.html">
-                                                                {{i.Subject_name}}</a>
+                                                                {{i.Subject_name | upper}}</a>
                                                         </h4>
                                                         <p class="post-exerpt font-sm mb-15">
-                                                            {{i.Topic}} </p>
+                                                            {{i.Topic }} </p>
                                                         <div>                                 
                                                             <a class="btn"  style="padding: 5px; " href="{% url 'Download_PDF_Study_Material' i.pk %}">Download PDF</a>   
                                                         </div>

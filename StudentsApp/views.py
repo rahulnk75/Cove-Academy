@@ -1,15 +1,17 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from StudentsApp . models import Register_Db
 from Frontend .views import Home_Page
 from django.contrib import messages
 import random
 from django.core.mail import send_mail
 from django.conf import settings
-from django.utils.crypto import get_random_string
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from .models import ChatGroup, Message, Register_Db
 
 
 # Create your views here.
-# Start Student Register 
+# Start Student Register  
 def Student_Register(request):
     return render(request, 'student_register.html')
 
@@ -172,3 +174,11 @@ def ResetPassword(request):
 
 
 # End Student Login
+
+
+def group_chat(request, course_name):
+    group = get_object_or_404(ChatGroup, course_name=course_name)
+    messages = group.messages.all().order_by('timestamp')  # Fetch messages for this group
+    return render(request, 'StudentsApp/group_chat.html', {'group': group, 'messages': messages})
+
+

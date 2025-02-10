@@ -13,6 +13,8 @@ urlpatterns = [
     path('send_otp/', views.SendOTP, name='send_otp'),
     path('VerifyOTP/', views.VerifyOTP, name='VerifyOTP'),
     path('reset_password/', views.ResetPassword, name='reset_password'),
+
+    path('group_chat/<str:course_name>/', views.group_chat, name='group_chat'),
     
     
     

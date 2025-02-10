@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+from django.utils import timezone
 
 # Create your models here.
 class TextBook_Db(models.Model):
@@ -53,6 +54,15 @@ class Record_Class_Db(models.Model):
     Logout_Time = models.TimeField(auto_now=True,null=True, blank=True) 
 
     def __str__(self):
-        return f"{self.Topic_Name} - {self.Subject}"
+        return f"{self.Topic_Name} - {self.Subject}" 
+
+class Save_Live_Details_DB(models.Model):
+    Mentors_Name = models.CharField(max_length=200,null=True, blank=True)
+    Exam = models.CharField(max_length=200,null=True, blank=True)
+    Course = models.CharField(max_length=200,null=True, blank=True)
+    Subject = models.CharField(max_length=200,null=True, blank=True)
+    Topic_Name =models.CharField(max_length=200,null=True, blank=True)
+    Personal_link =models.CharField(max_length=200,null=True, blank=True)
+    Date_Time = models.DateTimeField(default=timezone.now,null=True, blank=True)
 
 

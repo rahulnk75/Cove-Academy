@@ -35,8 +35,8 @@
                         <td>{{i.Course_fees}}</td>
                         <td>{{i.Old_fees}}</td>
                         <td><img src="{{i.Course_Images.url}}" style="width: 70px; height: 70px;"></td>
-                        <td>{{i.Description}}</td>
-                            <td class="text-end">
+                        <td style="width: 250px;">{{i.Description}}</td>
+                            <td style="width: 139px;" class="text-end">
                                 <a href="{% url 'Edit_Course' edit_id=i.id %}" class="btn btn-md rounded font-sm">Edit</a>
                                 <a href="{% url 'Delete_Course' del_id=i.id %}" class="btn btn-danger rounded font-sm">Delete</a> 
                             </td>
@@ -60,4 +60,26 @@
         </nav>
     </div>
 </section>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+      {% for i in messages %}
+        {% if i.tags == 'success' %}
+         <script>
+            swal('{{i}}','','success');
+         </script>
+         {% elif i.tags == 'error' %}
+         <script>
+            swal('{{i}}','','error');
+         </script>
+         {% elif i.tags == 'warning' %}
+         <script>
+            swal('{{i}}','','warning');
+         </script>
+         {% else %}
+         <script>
+            swal('{{i}}','','info');
+         </script>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
 {% endblock %}

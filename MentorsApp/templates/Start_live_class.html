@@ -1,0 +1,205 @@
+<html>
+    {% load static %}
+
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="{% static 'admin/assets/css/main.css' %}" rel="stylesheet" type="text/css" />
+    <style>
+        #root {
+            width: 100vw;
+            height: 100vh;
+            }
+    </style>
+</head>
+
+
+<body>
+    <div id="root"></div> <br>
+    <div >
+        <h1 style="text-align: center;">Share The Live Details</h1> <br>
+        <form action="{% url 'Save_Live_Details' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row" style="margin-left: 300px;">
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-body" >
+                            <div class="row" >
+                                <div class="col-md-12">
+                                    <div class="mb-4 "> 
+                                        <label class="form-label ">Mentors Name</label>
+                                        <input class="form-control " value="{{Email_.0.Full_Name | upper}}" name="Mentors_Name_" readonly>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label div_style">Select Exam</label>
+                                        <select class="form-select div_style" name="Exam_" id="exam-dropdown">
+                                            <option></option>
+                                            {% for i in exam %}
+                                            <option value="{{ i.Exam_Category }}">{{ i.Exam_Category }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div> 
+                                    
+                                    <div class="mb-4">
+                                        <label class="form-label div_style">Select Course</label>
+                                        <select class="form-select div_style" name="Course_" id="course-dropdown">
+                                            <option></option>
+                                        </select>
+                                    </div> 
+                                    <div class="mb-4">
+                                        <label class="form-label div_style">Select Subject</label>
+                                        <select class="form-select div_style" name="Subject_" id="subject-dropdown">
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label div_style">Topic Name</label>
+                                        <input type="text" placeholder="Type here" class="form-control div_style" name="Topic_Name_">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label div_style">Personal link</label>
+                                        <input class="form-control div_style" type="text" name="Personal_link_"  placeholder="Type here">
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-md rounded font-sm hover-up" type="submit">Upload</button>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        function getUrlParams(url) {
+            let urlStr = url.split('?')[1];
+            const urlSearchParams = new URLSearchParams(urlStr);
+            const result = Object.fromEntries(urlSearchParams.entries());
+            return result;
+        }
+    
+    
+            // Generate a Token by calling a method.
+            // @param 1: appID
+            // @param 2: serverSecret
+            // @param 3: Room ID
+            // @param 4: User ID
+            // @param 5: Username
+        const roomID = getUrlParams(window.location.href)['roomID'] || (Math.floor(Math.random() * 10000) + "");
+        const userID = Math.floor(Math.random() * 10000) + "";
+        const userName = "{{Email_.0.Full_Name | upper}}"
+        const appID = 1194100193;
+        const serverSecret = "a6ce60b14e6d8208b675c7eaca710103";
+        const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
+    
+        
+            const zp = ZegoUIKitPrebuilt.create(kitToken);
+            zp.joinRoom({
+                container: document.querySelector("#root"),
+                sharedLinks: [{
+                    name: 'Personal link',
+                    url: window.location.protocol + '//' + window.location.host  + window.location.pathname + '?roomID=' + roomID,
+                }],
+                scenario: {
+                    mode: ZegoUIKitPrebuilt.VideoConference,
+                },
+                    
+                   turnOnMicrophoneWhenJoining: false,
+                   turnOnCameraWhenJoining: false,
+                   showMyCameraToggleButton: true,
+                   showMyMicrophoneToggleButton: true,
+                   showAudioVideoSettingsButton: true,
+                   showScreenSharingButton: true,
+                   showTextChat: true,
+                   showUserList: true,
+                   maxUsers: 50,
+                   layout: "Grid",
+                   showLayoutButton: true,
+             
+                });
+    }
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Update courses when an exam is selected
+        $('#exam-dropdown').change(function () {
+            const examCategory = $(this).val();
+            if (examCategory) {
+                $.ajax({
+                    url: "{% url 'get_courses_by_exam' %}",
+                    data: { exam_category: examCategory },
+                    success: function (data) {
+                        let courseDropdown = $('#course-dropdown');
+                        courseDropdown.empty();
+                        courseDropdown.append('<option value="">Select Course</option>');
+                        data.forEach(course => {
+                            courseDropdown.append(`<option value="${course.Course_Name}">${course.Course_Name}</option>`);
+                        });
+                    }
+                });
+            }
+        });
+
+        // Update subjects when a course is selected
+        $('#course-dropdown').change(function () {
+            const courseName = $(this).val();
+            if (courseName) {
+                $.ajax({
+                    url: "{% url 'get_subjects_by_course' %}",
+                    data: { course_name: courseName },
+                    success: function (data) {
+                        let subjectDropdown = $('#subject-dropdown');
+                        subjectDropdown.empty();
+                        subjectDropdown.append('<option value="">Select Subject</option>');
+                        data.forEach(subject => {
+                            subjectDropdown.append(`<option value="${subject.Subject_Name}">${subject.Subject_Name}</option>`);
+                        });
+                    }
+                });
+            }
+        });
+    }); 
+</script> 
+<script src="{% static 'admin/assets/js/vendors/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'admin/assets/js/vendors/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'admin/assets/js/vendors/select2.min.js' %}"></script>
+    <script src="{% static 'admin/assets/js/vendors/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'admin/assets/js/vendors/jquery.fullscreen.min.js' %}"></script>
+    <script src="{% static 'admin/assets/js/vendors/chart.js' %}"></script>
+
+    <script src="{% static 'admin/assets/js/main.js' %}" type="text/javascript"></script>
+    <script src="{% static 'admin/assets/js/custom-chart.js' %}" type="text/javascript"></script>
+<script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% if messages %}
+      {% for i in messages %}
+        {% if i.tags == 'success' %}
+         <script>
+            swal('{{i}}','','success');
+         </script>
+         {% elif i.tags == 'error' %}
+         <script>
+            swal('{{i}}','','error');
+         </script>
+         {% elif i.tags == 'warning' %}
+         <script>
+            swal('{{i}}','','warning');
+         </script>
+         {% else %}
+         <script>
+            swal('{{i}}','','info');
+         </script>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+
+</html>

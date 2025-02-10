@@ -43,7 +43,11 @@ INSTALLED_APPS = [
     'StudentsApp',
     'CourseApp',
     'MentorsApp',
-   
+    'social_django',
+    'channels',
+    
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -133,6 +137,9 @@ MEDIA_URL='/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+
+
+# email detail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
 EMAIL_PORT = 587
@@ -140,6 +147,22 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'rahulnk75@gmail.com' 
 EMAIL_HOST_PASSWORD = 'ekwv lsmi quic fyps' 
 
+# Zoom meeting details
 
+
+# Zoom OAuth credentials
+SOCIAL_AUTH_ZOOM_KEY = 'IRxCsGQdRgWw6eqqeJ_tjA'  # Replace with your Zoom API Key
+SOCIAL_AUTH_ZOOM_SECRET = 'RRsIW4muP9gHklvTTohkqGocp8XclBdo'  # Replace with your Zoom API Secret
+SOCIAL_AUTH_ZOOM_SCOPE = ['meeting:read', 'meeting:write']
+SOCIAL_AUTH_ZOOM_REDIRECT_URI = 'http://localhost:8000/zoom/authredirect'  # Your callback URL
+SOCIAL_AUTH_ZOOM_API_ACCOUNT_ID = 'SonFeeaxStu9An5-R2kJ4Q'  # Replace with your Zoom Account ID
+
+
+ASGI_APPLICATION = 'E_Learning_Platform.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",  # Use Redis for production
+    },
+}
 
 

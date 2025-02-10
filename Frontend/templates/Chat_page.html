@@ -1,11 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html class="no-js" lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <title>Cove Academy_Group Chat</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'web/assets/css/main.css' %}">
 </head>
+
 <body>
-    Chat
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{% url 'Home_Page' %}" rel="nofollow">Home</a>
+                    <span></span>
+                    {% for i in obj %}
+                    <i style="color: brown; font-weight: 600;"> {{i.Full_Name | upper }} </i>
+                    {% endfor %}
+                    {% for i in detail %}
+                    <span>
+                        <a href="#" class="name-item" data-name="{{ i.Course_Name }}">{{ i.Course_Name }}</a>
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <section class="pt-150">
+            <div class="container">
+                <div class="row" style="margin-top: -140px; margin-left: 40px;">
+                    <div class="col-lg-10 m-auto">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="tab-content  dashboard-content">
+                                    <div class="tab-pane fade  active show " id="dashboard" role="tabpanel"
+                                        aria-labelledby="dashboard-tab">
+                                        <div class="card" style="margin-left: -25px; height: 450px; width: 850px;">
+                                            <div class="card-header">
+                                                {% for i in detail %}
+                                                <h5 class="Select_one" >{{ i.Course_Name }}</h5>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <form action="" method="post" >
+                                                {% csrf_token %}
+                                                {% for i in obj %}
+                                                <input type="hidden" name="" id="" value="{{i.Full_Name}}">
+                                                <input type="hidden" name="" id="" value="{{i.User_Email}}">
+                                                {% endfor %}
+                                                <input type="hidden" id="selected-course" placeholder="Selected Course" readonly>
+                                                <input type="text" placeholder="Message" class="Message">
+                                                <button type="submit" class="btn send">Send</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <style>
+        .send {
+            margin-left: 709px;
+            margin-top: -82px;
+            padding: 15px;
+            height: 55px;
+        }
+
+        .Message {
+            width: 750px;
+            margin-left: -25px;
+            height: 55px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
+    <!-- Preloader Start -->
+
+    <!-- Vendor JS-->
+
+
+    <script src="{% static 'web/assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'web//js/plugins/slick.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.syotimer.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/wow.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery-ui.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/magnific-popup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/select2.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/waypoints.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/counterup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/images-loaded.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/isotope.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/scrollup.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.vticker-min.js' %}"></script>
+    <script src="{% static 'web/assets/js/plugins/jquery.theia.sticky.js' %}"></script>
+    <!-- Template  JS -->
+    <script src="{% static 'web/assets/js/main.js' %}"></script>
 </body>
+
 </html>

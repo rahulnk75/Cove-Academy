@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Mentors-E-Learning-Platform </title>
+    <title>Cove Academy_Mentors</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,12 +42,12 @@
                     </a>
                 </li>
                 <li class="menu-item has-submenu">
-                    <a class="menu-link" href="page-products-list.html"> <i class="icon material-icons md-class"></i>
-                        <span class="text">Live Class</span>
+                    <a class="menu-link" href=""> <i class="icon material-icons md-videocam "></i>
+                        <span class="text">Start Live Class</span>
                     </a>
                     <div class="submenu">
-                        <a href="">Start Live</a>
-                        <a href="">Live details</a>
+                        <a href="{% url 'Start_Live_Class' %}">Start Room</a>
+                        <a href="{% url 'Display_Live_Details' %}">Room details</a>
                         <!-- <a href="page-products-grid-2.html">Product grid 2</a>
                         <a href="page-categories.html">Categories</a> -->
                     </div>
@@ -119,15 +119,21 @@
                         <!-- <a href="page-form-product-3.html">Add product 3</a>
                         <a href="page-form-product-4.html">Add product 4</a> -->
                     </div>
-                </li>
-                
-                
-                
-                <li class="menu-item">
-                    <a class="menu-link" disabled href=""> <i class="icon material-icons md-message"></i>
-                        <span class="text">Messages</span>
+                </li> 
+              
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="page-form-product-1.html"> <i class="icon material-icons md-class"></i>
+                        <span class="text">Students Feedback</span>
                     </a>
+                    <div class="submenu">
+                        <a href="{% url 'Display_Course_Comments' %}">Courses Feedback</a>
+                        <a href="{% url 'Display_Textbook' %}">Subjects Feedback</a>
+                        <!-- <a href="page-form-product-3.html">Add product 3</a>
+                        <a href="page-form-product-4.html">Add product 4</a> -->
+                    </div>
                 </li>
+                
+                
             </ul>
             <hr>
             <ul class="menu-aside">
@@ -172,7 +178,7 @@
                    
                     <li class="dropdown nav-item"> 
                         <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="{% static 'admin/assets/imgs/people/avatar2.jpg' %}" alt="User"></a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount"> 
                             {% if request.session.Email %}
                             <a class="dropdown-item" href="#" style="font-weight: 600;"><i class="material-icons md-perm_identity"></i>{{ request.session.Email }}</a>
                             {% endif %} 
@@ -433,39 +439,6 @@
             <div class="card mb-4">
                 <header class="card-header">
                     <h3 class="card-title">Class Details</h3>
-                    <div class="row align-items-center">
-                        <!-- <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-                            <div class="custom_select">
-                                <select class="form-select select-nice">
-                                    <option selected>All Categories</option>
-                                    <option>Women's Clothing</option>
-                                    <option>Men's Clothing</option>
-                                    <option>Cellphones</option>
-                                    <option>Computer & Office</option>
-                                    <option>Consumer Electronics</option>
-                                    <option>Jewelry & Accessories</option>
-                                    <option>Home & Garden</option>
-                                    <option>Luggage & Bags</option>
-                                    <option>Shoes</option>
-                                    <option>Mother & Kids</option>
-                                </select>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-md-2 col-6">
-                            <input type="date" value="02.05.2022" class="form-control">
-                        </div> -->
-                        <!-- <div class="col-md-2 col-6">
-                            <div class="custom_select">
-                                <select class="form-select select-nice">
-                                    <option selected>Status</option>
-                                    <option>All</option>
-                                    <option>Paid</option>
-                                    <option>Chargeback</option>
-                                    <option>Refund</option>
-                                </select>
-                            </div>
-                        </div> -->
-                    </div>
                 </header>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -497,9 +470,65 @@
                                         <td>{{i.Course}}</td>
                                         <td>{{i.Subject}}</td>
                                         <td>{{i.Topic_Name}}</td>
-                                        <td><button class="btn btn-warning" style="padding: 5px; font-size: 13px;font-weight: 500;">View Details</button></td>
+                                        <td><a href="{% url 'Display_Rcecord_Class' %}"><button class="btn btn-warning" style="padding: 5px; font-size: 13px;font-weight: 500;">View Details</button></a></td>
                                     </tr>
                                     {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="pagination-area mt-30 mb-50">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-start">
+                        <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                        <li class="page-item"><a class="page-link" href="#">02</a></li>
+                        <li class="page-item"><a class="page-link" href="#">03</a></li>
+                        <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                        <li class="page-item"><a class="page-link" href="#">16</a></li>
+                        <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+           
+
+            <div class="card mb-4">
+                <header class="card-header">
+                    <h3 class="card-title">Courses Feedback</h3>
+                </header>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="table align-middle table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        
+                                        <th class="align-middle" scope="col">Course Name</th>
+                                        <th class="align-middle" scope="col">User Name</th>
+                                        <th class="align-middle" scope="col">Comment</th>
+                                        
+                                        <th class="align-middle" scope="col">Date</th>
+                                        <th class="align-middle" scope="col">Time</th>
+                                       
+                        
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in C_comment_ %}
+
+                                    <tr>
+                                        <td>{{i.C_Cours_Name}}</td>
+                                        <td>{{i.C_User |upper}}</td>
+                                        <td style="width: 500px;">{{i.C_Comment}}</td>
+                                        
+                                        <td>{{i.C_Date}}</td>
+                                        <td>{{i.C_Time}}</td>
+                        
+                                        </tr>
+                                        {% endfor %}
                                 </tbody>
                             </table>
                         </div>

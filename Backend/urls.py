@@ -60,7 +60,11 @@ urlpatterns = [
     path('Remove_Display_Bought_Subjects/<int:rem_id>/',views.Remove_Display_Bought_Subjects,name='Remove_Display_Bought_Subjects'),
     # start display Payment details
     
-    
+    # Start Comments Details
+    path('Display_Course_Comment/',views.Display_Course_Comment,name='Display_Course_Comment'),
+    path('Delete_Course_Comments/<int:del_id>/',views.Delete_Course_Comments,name='Delete_Course_Comments'),
+
+    # End Comments Details
     
 
 ]

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Group Chat - {{ group.course_name }}</title>
+</head>
+<body>
+    <h1>Chat Group: {{ group.course_name }}</h1>
+    <ul>
+        {% for message in messages %}
+            <li><strong>{{ message.sender }}:</strong> {{ message.content }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

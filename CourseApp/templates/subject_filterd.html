@@ -86,7 +86,7 @@
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1 d-block d-lg-none">
-                        <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
+                        <a href="index.html"><img src="{% static 'web/assets/imgs/theme/logo.svg' %}" alt="logo"></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex">
                         <div class="main-categori-wrap d-none d-lg-block">
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="hotline d-none d-lg-block">
-                       <a href="{% url 'Live_Class_Page' %}"><p><i class="fi-rs-headset"></i><span style="color: brown;">Live Class</span></p></a>
+                       <a class="dropdown-item  hover-up" style="background-color: white;" href="{% url 'Live_Class_Page' %}"><p><i class="fi-rs-headset"></i><span style="color: brown;">Live Class</span></p></a>
                     </div>    
                 </div>
             </div>
@@ -220,9 +220,18 @@
                                                                 <h4 class="course">For more details, call us on 9876543210</h4>
                                                                 {% for i in Ex_course %}
                                                                 <h4 class="course">Get ready to sce your {{i.Course_Name | upper}}  exam with as  &#128640; </h4>
-                                                                {% endfor %}
+                                                                {% endfor %} <br> <br> <br>
+                                                                <form action="{% url 'Save_Course_Comments' %}" method="post" enctype="multipart/form-data">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" value="{{ Com_user.0.Full_Name }}" readonly name="C_user">
+                                                                    {% for i in Ex_course %}
+                                                                    <input type="hidden" value="{{i.Course_Name}} " name="C_Cours_name">
+                                                                    {% endfor %}
+                                                                    <label for="">Comments</label>
+                                                                    <textarea name="C_comment" id="" style="font-size: 16px;" placeholder="Comments...!!" required></textarea> <br>
+                                                                    <button class="btn" type="submit">Submit</button>
+                                                                </form>
                                                                 
-
                                                             </div>
                                                         </th>
                                                     </tr>
@@ -247,26 +256,26 @@
                                                                     <div class="loop-grid pr-40">
                                                                         <div class="row">
                                                                             {% for i in sub %}
-                                                                            <div class="col-lg-3" style="width: 248px;" >
+                                                                            <div class="col-lg-3" style="width: 370px;" >
                                                                                 <article class="wow fadeIn animated hover-up mb-30 animated" style="visibility: visible;">
                                                                                     <div class="post-thumb img-hover-scale" >
                                                                                         
                                                                                     </div>
                                                                                 <a href="{% url 'Class_Page' sub_id=i.id sub_name_id=i.id %}">
-                                                                                    <div class="entry-content-2" style="height: 80px;">
+                                                                                    <div class="entry-content-2" style="height: 80px; ">
                                                                                         <h4 class="post-title mb-15">
                                                                                             <a href="{% url 'Class_Page' sub_id=i.id sub_name_id=i.id %}" style="margin-left: 49px;">{{i.Subject_Name | upper}}</a></h4>
                                                                                             <div style="margin-top: -40px;">
                                                                                            
                                                                                             <img src="{{i.Subject_Images.url}}" style="height: 30px; width: 30px;  margin-top: 9px;" >
                                                                                         </div>
-                                                                                        <p class="post-exerpt mb-10 font-sm" style="margin-top: -19px; margin-left: 49px;"><samp>2</samp> Chapters</p>
+                                                                                        <p class="post-exerpt mb-10 font-sm" style="margin-top: -19px; margin-left: 49px;"><samp>Chapters</samp> & PDF</p>
                                                                                         <!-- <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
                                                                                             <a href="blog-post-right.html" class="text-brand">Read more <i class="fi-rs-arrow-right"></i></a>
                                                                                         </div> -->
                                                                                     </div>
                                                                                 </a>
-                                                                                </article>
+                                                                                </article> 
                                                                             </div>
                                                                           {% endfor %}
                                                                         </div>

@@ -16,7 +16,7 @@ urlpatterns = [
     path('Chat_Page/',views.Chat_Page,name='Chat_Page'),
     path('Live_Class_Page/',views.Live_Class_Page,name='Live_Class_Page'),
     path('Mock_Test_Page/',views.Mock_Test_Page,name='Mock_Test_Page'),
-
-
+    path('search/', views.search, name='search'),
+    path('Student_Live_Class/', views.Student_Live_Class, name='Student_Live_Class'),
 
 ]  

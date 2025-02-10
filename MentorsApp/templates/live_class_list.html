@@ -1,0 +1,13 @@
+{% for live_class in live_classes %}
+    <div>
+        <h4>{{ live_class.topic_name }}</h4>
+        <p>{{ live_class.course_name }} - {{ live_class.subject_name }}</p>
+        <p>Scheduled for: {{ live_class.live_start_time }}</p>
+
+        {% if live_class.zoom_start_url %}
+            <a href="{{ live_class.zoom_start_url }}" target="_blank" class="btn btn-primary">Start Live Class</a>
+        {% else %}
+            <p>No start URL available.</p>
+        {% endif %}
+    </div>
+{% endfor %}

@@ -1,0 +1,40 @@
+<h1 style="color: brown;">Search Results</h1>
+<div style="margin-left: 50px;">
+{% if query %}
+    <p>Results for "{{ query }}":</p>
+    
+    <h2>Exams</h2>
+    {% for exam in exam_results %}
+        <div>
+            <h3>{{ exam.Exam_Category }}</h3>
+            <p>{{ exam.Description }}</p>
+        </div>
+    {% empty %}
+        <p>No exams found.</p>
+    {% endfor %}
+    
+    <h2>Courses</h2>
+    {% for course in course_results %}
+        <div>
+            <h3>{{ course.Course_Name }}</h3>
+            <p>{{ course.Description }}</p>
+        </div>
+    {% empty %}
+        <p>No courses found.</p>
+    {% endfor %}
+    
+    <h2>Subjects</h2>
+    {% for subject in subject_results %}
+        <div>
+            <h3>{{ subject.Subject_Name }}</h3>
+            <p>{{ subject.Description }}</p>
+        </div>
+    {% empty %}
+        <p>No subjects found.</p>
+    {% endfor %}
+{% else %}
+    <p>No query provided.</p>
+{% endif %}
+</div>
+
+

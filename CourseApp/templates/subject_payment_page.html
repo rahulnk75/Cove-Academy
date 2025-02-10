@@ -49,7 +49,7 @@
             <div>
                 <h3 class="wel">PROCEED TO PAYMENT</h3>
                 <h3 class="cove">{{ obj.0.Full_Name|upper}}</h3>
-                <input type="hidden" value="{{request.session.Email}}" name="Email_">
+                <input type="hidden" value="{{request.session.User_Email}}" name="Email_">
                 <input type="hidden" value="{{ obj.0.Full_Name}}" name="Full_name_">
                 {% for i in pay_p %}
                 <h3 class="pre">{{i.Subject_Name}}</h3>

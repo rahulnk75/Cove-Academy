@@ -65,4 +65,24 @@ urlpatterns = [
    path('Upload_Upload_Record_Class/<int:upd_id>/',views.Upload_Upload_Record_Class,name='Upload_Upload_Record_Class'),
 # End Upload Class Details
 
+# Start Comments Details
+   path('Display_Course_Comments/',views.Display_Course_Comments,name='Display_Course_Comments'),
+# End Comments Details
+# Start Live Details
+   path('Start_Live/',views.Start_Live,name='Start_Live'),
+   path('Start_Live_Class/',views.Start_Live_Class,name='Start_Live_Class'),
+   path('Join_Live_class/',views.Join_Live_class,name='Join_Live_class'),
+   path('Save_Live_Details/',views.Save_Live_Details,name='Save_Live_Details'),
+   path('Display_Live_Details/',views.Display_Live_Details,name='Display_Live_Details'),
+   path('Delete_Live_Details/<int:del_id>/',views. Delete_Live_Details,name='Delete_Live_Details'),
+
+# End Live Details
+
+   
+
+
+
+
+    
+
 ]

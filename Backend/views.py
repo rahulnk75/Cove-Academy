@@ -8,14 +8,13 @@ from StudentsApp.models import Register_Db
 from MentorsApp. models import Mentors_Register_Db,Record_Class_Db
 from Frontend.models import Contact_Db
 from django.contrib import messages
-from CourseApp.models import Payment_DB,Subject_Payment_DB
+from CourseApp.models import Payment_DB,Subject_Payment_DB,Course_Comments_DB
 from django.db.models import Sum, Count 
-
-
 
 # start exam categotys
 
 def index_page(request):
+    C_comment_=Course_Comments_DB.objects.all()
     details=Record_Class_Db.objects.all()
     course_revenue = Payment_DB.objects.aggregate(total_revenue=Sum('Course_Fees'))
     course_student_count = Payment_DB.objects.aggregate (total_students=Count('id'))
@@ -33,7 +32,8 @@ def index_page(request):
         'subject_student_count': subject_student_count['total_students'] or 0,
         'total_revenue': total_revenue,
         'total_students': total_students,
-        'details':details
+        'details':details,
+        'C_comment_':C_comment_,
     })
 
 
@@ -48,6 +48,7 @@ def Save_Exam_Category(request):
         _Images=request.FILES['Images_']
         obj=Exam_Db(Exam_Category=_Exam_Category,Description=_Description,Images=_Images)
         obj.save()
+        messages.success(request,"Item Added Successfully...!!!")
         return redirect(Exam_Category)
         
 def Display_Exam_Category(request):
@@ -57,6 +58,7 @@ def Display_Exam_Category(request):
 def Delete_Exam_Category(request,del_id):
     remove=Exam_Db.objects.get(id=del_id)
     remove.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
     return redirect(Display_Exam_Category)
 
 def Edit_Exam_Category(request,edit_id):
@@ -75,6 +77,7 @@ def Upload_Exam_Category(request,upd_id):
             image=Exam_Db.objects.get(id=upd_id).Images
 
         Exam_Db.objects.filter(id=upd_id).update(Exam_Category=_Exam_Category,Description=_Description,Images=image)
+        messages.success(request,"Successfully Updated...!!!")
         return redirect(Display_Exam_Category)
 # end exam categotys
 # start course details
@@ -96,6 +99,7 @@ def Save_Course(request):
                         Course_Name=_Course_Name,Course_fees=_Course_fees,Course_Images=_Course_Images,
                         Description=_Description,Old_fees=_old_fees)
           obj.save()
+          messages.success(request,"Item Added Successfully...!!!")
           return redirect(Add_Course)
      
 def Dispaly_Course(request):
@@ -105,6 +109,7 @@ def Dispaly_Course(request):
 def Delete_Course(request,del_id):
     delt=Course_Db.objects.filter(id=del_id)
     delt.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
     return redirect(Dispaly_Course)
 
 def Edit_Course(request,edit_id):
@@ -130,6 +135,7 @@ def Upload_Course(request,upd_id):
           _Description=request.POST.get('Description_')
           Course_Db.objects.filter(id=upd_id).update(Exam_Categories=_Exam_Categories,Exam_Name=_Exam_Name,
                         Course_Name=_Course_Name,Course_fees=_Course_fees,Course_Images=_image,Description=_Description,Old_fees=_old_fees)
+          messages.success(request,"Successfully Updated...!!!")
           return redirect(Dispaly_Course)
      
 # end course details
@@ -152,6 +158,7 @@ def Save_Subject(request):
           obj=Subject_Db(Course_Name=_Course_name,Subject_Name=_Subject_Name,Description=_Description,Subject_Images=_Subject_Images,
                          Subject_fees=_Subject_fees,Old_fees=_old_fees)
           obj.save()
+          messages.success(request,"Item Added Successfully...!!!")
           return redirect(Add_Subject)
 
 def Display_Subject(request):
@@ -161,6 +168,7 @@ def Display_Subject(request):
 def Delete_Subject(request,sub_id):
     remov=Subject_Db.objects.filter(id=sub_id)
     remov.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
     return redirect(Display_Subject)
 
 
@@ -188,6 +196,7 @@ def Update_Subject(request,upd_id):
           _Description=request.POST.get('Description_')
           Subject_Db.objects.filter(id=upd_id).update(Course_Name=_Course_name,Subject_Name=_Subject_Name,Description=_Description,
                                                       Subject_Images=_image,Subject_fees=_Subject_fees,Old_fees=_old_fees)
+          messages.success(request,"Successfully Updated...!!!")
           return redirect(Display_Subject)
 
 # end subject details         
@@ -247,12 +256,14 @@ def Approve_Mentor(request, mentor_id):
     mentor = Mentors_Register_Db.objects.get(id=mentor_id)
     mentor.is_approved = True
     mentor.save()
+    messages.success(request,"Approved Successfully...!!!")
     return redirect('Display_Register_Mentors')
 
 
 def Delete_Register_Mentors(request,del_id):
     remov=Mentors_Register_Db.objects.filter(id=del_id)
     remov.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
     return redirect(Display_Register_Mentors) 
 
 def Display_Bought_Couserses(request):
@@ -262,6 +273,7 @@ def Display_Bought_Couserses(request):
 def Remove_Display_Bought_Couserses(request,rem_id):
     remov=Payment_DB.objects.filter(id=rem_id)
     remov.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
     return redirect(Display_Bought_Couserses)
     
 def Display_Bought_Subjects(request):
@@ -271,7 +283,18 @@ def Display_Bought_Subjects(request):
 def Remove_Display_Bought_Subjects(request,rem_id):
     remov=Subject_Payment_DB.objects.filter(id=rem_id)
     remov.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
     return redirect(Display_Bought_Subjects)
 
+# Start Comments Details
+def Display_Course_Comment(request):
+    comment=Course_Comments_DB.objects.all()
+    return render(request,'display_course_comment.html',{'comment':comment})
 
+def Delete_Course_Comments(request,del_id):
+    remove=Course_Comments_DB.objects.filter(id=del_id)
+    remove.delete()
+    messages.success(request,"Item Deleted Successfully...!!!")
+    return redirect(Display_Course_Comment)
+# End Comments Details
 
